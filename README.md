@@ -5,21 +5,24 @@ Everything is plain HTML/CSS/JS — no build step, no framework — so it stays 
 
 ```
 ffm-website/
-├── index.html      ← Home (hero, about, testimonials, programs, FAQ, join)
-├── resources.html  ← Resource Hub (cards linking to the Canva lessons)
+├── index.html      ← Home (hero, about, testimonials + IG posts, posters, FAQ, join)
+├── resources.html  ← Resource Hub (real lesson covers linking to the Canva lessons)
 ├── contact.html    ← Contact + embedded subscription Google Form
 ├── styles.css      ← colors, fonts, spacing (navy theme lives at the top)
-├── main.js         ← 3D hero, scroll effects, counters, site search
+├── main.js         ← 3D hero, site-wide content search, mobile menu
 ├── images/
-│   ├── logo.png    ← FFM logo, transparent background
-│   ├── booth.jpeg
-│   ├── workshop.jpeg
-│   └── crafts.jpeg
+│   ├── logo.png            ← FFM logo, transparent background
+│   ├── booth.jpeg / workshop.jpeg / crafts.jpeg
+│   ├── res-*.png           ← Canva lesson cover images (Resource Hub cards)
+│   └── poster-*.png        ← community posters shown under the IG posts
 └── README.md       ← this file
 ```
 
 The top navigation is intentionally minimal (Home · About · Resource Hub · FAQ · Contact),
-with a **search** icon and a **Join Us** button to its right.
+followed by the **Join Us** button and a **search bar** on the far right. The search matches
+the real text content of every page and shows the matching sentence; anchor links jump
+directly to their section (no scroll animation). Instagram posts are embedded with
+Instagram's official embed script (they need internet to render).
 
 ## View it locally
 Open `index.html` in any browser, or run a tiny server from this folder:
@@ -28,23 +31,39 @@ python3 -m http.server 4173
 ```
 then visit http://localhost:4173
 
+## Easiest way to edit: the /admin panel (Decap CMS)
+Once the site is live on Netlify, board members open **`<your-site>/admin/`**, log in with
+GitHub, and get a friendly form editor — no code. It edits `content/site.json` and
+`content/resources.json`, which the pages load automatically:
+
+- Impact stats, next event, student testimonials
+- The two embedded Instagram posts (paste any post URL)
+- Executive Board & Internship cards (deadlines, application links)
+- FAQ, contact email/socials, the subscription form URL
+- Resource Hub cards (titles, descriptions, cover images, Canva links)
+
+Editors need a (free) GitHub account with write access to this repo.
+Anything not listed above (hero wording, About paragraphs) is edited in the HTML as below.
+
 ## How the board edits content (no coding background needed)
 All wording lives in **`index.html`**. Open it in any text editor and change the text between the
 tags — for example the headline is in the `<h1 class="hero__title">` block. Each section is clearly
 labeled with a comment like `<!-- ===== ABOUT ===== -->`. Save and refresh.
 
 Common edits:
-- **Stats** → search for `data-count` in `index.html` (the numbers animate up automatically).
-- **Testimonials** → the "Student Voices" section in `index.html`.
+- **Stats** → the "IMPACT STATS" section in `index.html` (plain text numbers).
+- **Testimonials** → the "TESTIMONIALS" section in `index.html`.
+- **Instagram posts** → each embedded post is a `<blockquote class="instagram-media">` with the
+  post URL in `data-instgrm-permalink`; swap in any post's URL to change it.
 - **Email / social links** → search for `financeformovement@gmail.com`, `instagram.com`, `tiktok.com`.
 - **Application links & deadlines** → search for `forms.gle` in the "Get Involved" section.
-- **Resource lessons** → in `resources.html`, each card's `href` is its Canva link; to add a card,
-  copy an existing `<a class="res-card">…</a>` block and change the title, icon, and link.
+- **Resource lessons** → in `resources.html`, each card's `href` is its Canva link and its `<img>`
+  is the cover in `images/`; copy a card block to add a new lesson.
 - **Subscription form** → in `contact.html`, the `<iframe src="…">` points at the Google Form.
   To swap forms, replace that URL with your new form's link and add `?embedded=true` to the end.
-- **Search results** → the searchable list is the `INDEX` array near the top of `main.js`.
+- **Search** → no setup needed; it indexes the pages' actual text automatically.
 - **Photos** → drop a new image into `images/` and update the matching `src="images/..."`.
-- **Colors** → top of `styles.css`, the `--navy-*` and `--blue-200` variables change the whole site.
+- **Colors** → top of `styles.css`, the `--navy*` variables change the whole site.
 
 ## Publish it (free) so the board has a live link
 Pick whichever is easiest:

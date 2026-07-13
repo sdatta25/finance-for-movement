@@ -1,0 +1,9 @@
+# Netlify configuration — static site, no build step.
+[build]
+  publish = "."
+
+# Content JSON should always be fresh so CMS edits show up immediately.
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "no-cache"

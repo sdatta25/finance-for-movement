@@ -1,7 +1,142 @@
 /* ============================================================
-   1. 3D HERO ANIMATION — floating navy/blue coins & shapes
-      (only runs on pages that have the hero canvas; Three.js is
-      loaded dynamically so the other pages don't download it)
+   Finance For Movement — site script
+   1. Content hydration (CMS)   4. Site search
+   2. 3D hero                   5. Footer year
+   3. Mobile nav
+   ============================================================ */
+
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ============================================================
+   1. CONTENT HYDRATION
+      Editable content lives in content/*.json (managed through
+      the /admin Decap CMS panel). The HTML ships with the same
+      content baked in as a fallback; when the JSON loads, the
+      sections below are re-rendered from it.
+   ============================================================ */
+let contentPromise = null;
+function loadContent() {
+  contentPromise = contentPromise || (async () => {
+    const get = async (url) => {
+      try { return await (await fetch(url, { cache: 'no-cache' })).json(); }
+      catch { return null; }
+    };
+    const [site, resources] = await Promise.all([
+      get('content/site.json'),
+      get('content/resources.json'),
+    ]);
+    return { site, resources };
+  })();
+  return contentPromise;
+}
+
+function hydrate(root, { site, resources }) {
+  if (site) {
+    // Impact stats
+    const stats = root.querySelector('#impact .stats__grid');
+    if (stats && site.stats?.length) {
+      stats.innerHTML = site.stats.map((s) =>
+        `<div class="stat"><span class="stat__num">${esc(s.number)}</span><span class="stat__label">${esc(s.label)}</span></div>`
+      ).join('');
+    }
+
+    // Event
+    const event = root.querySelector('#events .event');
+    if (event && site.event) {
+      event.innerHTML = `
+        <div class="event__date"><span class="event__month">${esc(site.event.month)}</span><span class="event__day">${esc(site.event.day)}</span></div>
+        <div class="event__body"><h3>${esc(site.event.title)}</h3><p>${esc(site.event.description)}</p></div>`;
+    }
+
+    // Testimonials
+    const testi = root.querySelector('.testi-grid');
+    if (testi && site.testimonials?.length) {
+      testi.innerHTML = site.testimonials.map((t) => `
+        <figure class="testi">
+          <blockquote>“${esc(t.quote)}”</blockquote>
+          <figcaption><strong>${esc(t.name)}</strong> · ${esc(t.grade)}</figcaption>
+        </figure>`).join('');
+    }
+
+    // Instagram posts (first two cells of the 2x2 social grid)
+    const igCells = root.querySelectorAll('.socialgrid__cell');
+    if (igCells.length >= 2 && site.instagramPosts?.length >= 2) {
+      site.instagramPosts.slice(0, 2).forEach((p, i) => {
+        const url = p.url.replace(/\/?$/, '/');
+        igCells[i].innerHTML = `
+          <blockquote class="instagram-media" data-instgrm-permalink="${esc(url)}?utm_source=ig_embed" data-instgrm-version="14">
+            <a href="${esc(url)}">View this post on Instagram</a>
+          </blockquote>`;
+      });
+    }
+
+    // Join cards
+    const joinCards = root.querySelectorAll('#join .join__card');
+    [site.board, site.internship].forEach((card, i) => {
+      if (!joinCards[i] || !card) return;
+      joinCards[i].innerHTML = `
+        <h3>${esc(card.title)}</h3>
+        <ul class="join__meta">
+          ${(card.items || []).map((it) => `<li><span>${esc(it.label)}</span> ${esc(it.value)}</li>`).join('')}
+        </ul>
+        <a class="btn btn--light" href="${esc(card.link)}" target="_blank" rel="noopener">${esc(card.buttonText)}</a>`;
+    });
+
+    // FAQ
+    const faq = root.querySelector('.faq');
+    if (faq && site.faq?.length) {
+      faq.innerHTML = site.faq.map((f) =>
+        `<details><summary>${esc(f.question)}</summary><p>${esc(f.answer)}</p></details>`
+      ).join('');
+    }
+
+    // Contact page
+    const c = site.contact || {};
+    const email = root.querySelector('.contact__email');
+    if (email && c.email) { email.textContent = c.email; email.href = `mailto:${c.email}`; }
+    const socials = root.querySelectorAll('#get-in-touch .contact__socials a');
+    if (socials[0] && c.instagram) socials[0].href = c.instagram;
+    if (socials[1] && c.tiktok) socials[1].href = c.tiktok;
+    const form = root.querySelector('.subscribe iframe');
+    if (form && c.formEmbedUrl) form.setAttribute('src', c.formEmbedUrl);
+  }
+
+  if (resources) {
+    const grids = root.querySelectorAll('#resources .res-grid');
+    if (grids[0] && resources.lessons?.length) {
+      grids[0].innerHTML = resources.lessons.map((r) => `
+        <a class="res-card" href="${esc(r.link)}" target="_blank" rel="noopener">
+          <img src="${esc(r.image)}" alt="${esc(r.title)} — Finance For Movement lesson cover" />
+          <div class="res-card__body">
+            <div><h3>${esc(r.title)}</h3><p>${esc(r.description)}</p></div>
+            <span class="res-card__cta">View →</span>
+          </div>
+        </a>`).join('');
+    }
+    if (grids[1] && resources.moreTopics?.length) {
+      grids[1].innerHTML = resources.moreTopics.map((r) => `
+        <div class="res-card">
+          <img src="${esc(r.image)}" alt="${esc(r.title)} — Finance For Movement lesson cover" />
+          <div class="res-card__body"><div><h3>${esc(r.title)}</h3><p>${esc(r.note)}</p></div></div>
+        </div>`).join('');
+    }
+  }
+}
+
+(async function initContent() {
+  const data = await loadContent();
+  hydrate(document, data);
+  // (Re-)render Instagram embeds once their script is available.
+  let tries = 0;
+  const tick = setInterval(() => {
+    if (window.instgrm?.Embeds) { window.instgrm.Embeds.process(); clearInterval(tick); }
+    else if (++tries > 40) clearInterval(tick);
+  }, 250);
+})();
+
+/* ============================================================
+   2. 3D HERO — floating navy coins & rings (home page only).
    ============================================================ */
 (async function initHero() {
   const canvas = document.getElementById('hero-canvas');
@@ -18,12 +153,11 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // Cool, navy-toned lighting (no warm/gold tint)
-  scene.add(new THREE.AmbientLight(0x5b7fc4, 0.75));
-  const key = new THREE.DirectionalLight(0xeaf1ff, 1.5);
+  scene.add(new THREE.AmbientLight(0x5b7fc4, 0.7));
+  const key = new THREE.DirectionalLight(0xeaf1ff, 1.4);
   key.position.set(5, 8, 6);
   scene.add(key);
-  const rim = new THREE.PointLight(0x2f5fae, 2.4, 60);
+  const rim = new THREE.PointLight(0x2f5fae, 2.2, 60);
   rim.position.set(-8, -4, 8);
   scene.add(rim);
 
@@ -53,8 +187,7 @@
     } else {
       mesh = new THREE.Mesh(icoGeo, navyMat);
     }
-    const s = 0.6 + Math.random() * 0.9;
-    mesh.scale.setScalar(s);
+    mesh.scale.setScalar(0.6 + Math.random() * 0.9);
     mesh.position.set(
       (Math.random() - 0.5) * 22,
       (Math.random() - 0.5) * 14,
@@ -102,134 +235,115 @@
 })();
 
 /* ============================================================
-   2. Navbar: scroll shadow + mobile toggle
+   3. Navbar: mobile toggle
    ============================================================ */
 (function nav() {
   const header = document.querySelector('.nav');
   const toggle = document.getElementById('navToggle');
-  if (!header) return;
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  if (toggle) {
-    toggle.addEventListener('click', () => {
-      const open = header.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
+  if (!header || !toggle) return;
+  toggle.addEventListener('click', () => {
+    const open = header.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
   header.querySelectorAll('.nav__links a').forEach((a) =>
     a.addEventListener('click', () => header.classList.remove('open'))
   );
 })();
 
 /* ============================================================
-   3. Site search (client-side, beside Join Us)
+   4. Site search — matches the real text content of all pages
+      (after CMS hydration). Results appear only while typing.
    ============================================================ */
 (function search() {
   const input = document.getElementById('searchInput');
   const results = document.getElementById('searchResults');
   if (!input || !results) return;
 
-  // Searchable index of the whole site
-  const INDEX = [
-    { title: 'About Us', sub: 'Our mission & who we serve', url: 'index.html#about', kw: 'about mission youth led k-8 title 1 gwinnett overconsumption' },
-    { title: 'Why It Matters', sub: 'The financial literacy gap', url: 'index.html#problem', kw: 'why statistics teens credit debit confidence nefe gap' },
-    { title: 'What We Do', sub: 'Workshops, resources & fundraising', url: 'index.html#programs', kw: 'programs workshops monthly resources community art fundraising' },
-    { title: 'Student Voices', sub: 'Testimonials from students', url: 'index.html#testimonials', kw: 'testimonials students quotes reviews feedback samantha alex gabby' },
-    { title: 'Gallery', sub: 'Photos from the community', url: 'index.html#gallery', kw: 'gallery photos booth crafts festival' },
-    { title: 'Events', sub: 'Where to find us next', url: 'index.html#events', kw: 'events suwanee asian festival in person' },
-    { title: 'Join Us', sub: 'Board & internship applications', url: 'index.html#join', kw: 'join volunteer internship executive board apply opportunities' },
-    { title: 'FAQ', sub: 'Frequently asked questions', url: 'index.html#faq', kw: 'faq questions partner use utilize' },
-    { title: 'Resource Hub', sub: 'Free K–8 lessons', url: 'resources.html', kw: 'resources hub canva lessons free' },
-    { title: 'Needs vs. Wants', sub: 'Resource', url: 'resources.html', kw: 'needs wants resource lesson' },
-    { title: 'Credit vs. Debit', sub: 'Resource', url: 'resources.html', kw: 'credit debit card resource lesson' },
-    { title: 'What is a Receipt?', sub: 'Resource', url: 'resources.html', kw: 'receipt resource lesson' },
-    { title: 'Why Saving Matters', sub: 'Resource', url: 'resources.html', kw: 'saving save money resource lesson' },
-    { title: 'Contact Us', sub: 'Email & social links', url: 'contact.html', kw: 'contact email instagram tiktok message' },
-    { title: 'Subscribe (It’s Free!)', sub: 'Get monthly resources', url: 'contact.html#subscribe', kw: 'subscribe newsletter form free monthly signup' },
-  ];
+  const PAGES = ['index.html', 'resources.html', 'contact.html'];
+  let index = null;
+  let building = null;
 
-  let selIndex = -1;
-  let current = [];
-
-  function render(q) {
-    const query = q.trim().toLowerCase();
-    current = query
-      ? INDEX.filter((it) => (it.title + ' ' + it.kw).toLowerCase().includes(query))
-      : INDEX.slice(0, 6);
-    selIndex = -1;
-    if (current.length === 0) {
-      results.innerHTML = '<li class="search__empty">No results found.</li>';
-      return;
-    }
-    results.innerHTML = current
-      .map((it) => `<li><a href="${it.url}"><span class="sr-title">${it.title}</span><br><span class="sr-sub">${it.sub}</span></a></li>`)
-      .join('');
+  function sectionsOf(doc, page) {
+    const out = [];
+    doc.querySelectorAll('section[id]').forEach((sec) => {
+      const heading = sec.querySelector('.section__head h2') || sec.querySelector('h1, h2, h3');
+      const title = sec.dataset.searchTitle ||
+        (heading ? heading.textContent.trim() : page);
+      const text = sec.textContent.replace(/\s+/g, ' ').trim();
+      if (text) out.push({ title, url: `${page}#${sec.id}`, text });
+    });
+    return out;
   }
 
-  function showResults() { results.hidden = false; }
-  function hideResults() { results.hidden = true; }
+  async function buildIndex() {
+    const data = await loadContent();
+    const out = [];
+    for (const page of PAGES) {
+      try {
+        const here = location.pathname.endsWith(page) ||
+          (page === 'index.html' && /\/$/.test(location.pathname));
+        if (here) {
+          out.push(...sectionsOf(document, page));
+        } else {
+          const res = await fetch(page, { cache: 'no-cache' });
+          const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+          hydrate(doc, data);            // index the CMS-edited content, not the baked-in fallback
+          out.push(...sectionsOf(doc, page));
+        }
+      } catch { /* page unavailable — skip */ }
+    }
+    return out;
+  }
 
-  input.addEventListener('focus', () => { render(input.value); showResults(); });
-  input.addEventListener('input', () => { render(input.value); showResults(); });
+  // Snippet of the section text around the first match, query highlighted.
+  function snippet(text, query) {
+    const i = text.toLowerCase().indexOf(query.toLowerCase());
+    if (i < 0) return '';
+    const start = Math.max(0, i - 40);
+    const end = Math.min(text.length, i + query.length + 60);
+    const pre = (start > 0 ? '…' : '') + esc(text.slice(start, i));
+    const hit = esc(text.slice(i, i + query.length));
+    const post = esc(text.slice(i + query.length, end)) + (end < text.length ? '…' : '');
+    return `${pre}<mark>${hit}</mark>${post}`;
+  }
+
+  let selIndex = -1;
+
+  async function run(query) {
+    if (!index) {
+      building = building || buildIndex();
+      index = await building;
+    }
+    const q = query.trim();
+    if (q.length < 2) { results.hidden = true; results.innerHTML = ''; return; }
+    const hits = index.filter((s) => s.text.toLowerCase().includes(q.toLowerCase()));
+    selIndex = -1;
+    results.innerHTML = hits.length
+      ? hits.map((h) =>
+          `<li><a href="${h.url}"><span class="sr-title">${esc(h.title)}</span><span class="sr-snippet">${snippet(h.text, q)}</span></a></li>`
+        ).join('')
+      : '<li class="search__empty">No matches found.</li>';
+    results.hidden = false;
+  }
+
+  input.addEventListener('input', () => run(input.value));
 
   input.addEventListener('keydown', (e) => {
     const links = [...results.querySelectorAll('a')];
     if (e.key === 'ArrowDown') { e.preventDefault(); selIndex = Math.min(selIndex + 1, links.length - 1); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); selIndex = Math.max(selIndex - 1, 0); }
     else if (e.key === 'Enter') { e.preventDefault(); (links[selIndex] || links[0])?.click(); return; }
-    else if (e.key === 'Escape') { hideResults(); input.blur(); return; }
+    else if (e.key === 'Escape') { results.hidden = true; input.blur(); return; }
     links.forEach((l, i) => l.classList.toggle('sel', i === selIndex));
   });
 
   document.addEventListener('click', (e) => {
-    if (!results.hidden && !e.target.closest('.search')) hideResults();
+    if (!results.hidden && !e.target.closest('.search')) results.hidden = true;
   });
 })();
 
 /* ============================================================
-   4. Scroll reveal
-   ============================================================ */
-(function reveal() {
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-    });
-  }, { threshold: 0.12 });
-  els.forEach((el) => io.observe(el));
-})();
-
-/* ============================================================
-   5. Animated count-up for stats
-   ============================================================ */
-(function counters() {
-  const nums = document.querySelectorAll('.stat__num');
-  if (!nums.length) return;
-  const fmt = (n) => n.toLocaleString('en-US');
-  const run = (el) => {
-    const goal = +el.dataset.count;
-    const suffix = el.dataset.suffix || '';
-    const dur = 1600;
-    const start = performance.now();
-    const step = (now) => {
-      const p = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = fmt(Math.round(goal * eased)) + (p === 1 ? suffix : '');
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
-    });
-  }, { threshold: 0.5 });
-  nums.forEach((n) => io.observe(n));
-})();
-
-/* ============================================================
-   6. Footer year
+   5. Footer year
    ============================================================ */
 (function year() {
   const el = document.getElementById('year');

@@ -6,9 +6,6 @@
   <title>Contact Us — Finance For Movement</title>
   <meta name="description" content="Get in touch with Finance For Movement, or subscribe for free to receive monthly financial literacy resources." />
   <link rel="icon" href="images/logo.png" type="image/png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -18,7 +15,7 @@
     <div class="container nav__inner">
       <a class="brand" href="index.html" aria-label="Finance For Movement home">
         <span class="brand__logo"><img src="images/logo.png" alt="Finance For Movement logo" /></span>
-        <span class="brand__text">Finance&nbsp;For<br/><strong>Movement<span class="tm">™</span></strong></span>
+        <span class="brand__text">Finance For<br/><strong>Movement<span class="tm">™</span></strong></span>
       </a>
       <nav class="nav__links" aria-label="Primary">
         <a href="index.html">Home</a>
@@ -28,14 +25,14 @@
         <a href="contact.html" class="active">Contact</a>
       </nav>
       <div class="nav__actions">
+        <a class="btn btn--primary nav__cta" href="index.html#join">Join Us</a>
         <div class="search">
           <div class="search__bar">
             <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-            <input type="search" id="searchInput" placeholder="Search…" autocomplete="off" aria-label="Search the site" />
+            <input type="search" id="searchInput" placeholder="Search" autocomplete="off" aria-label="Search the site" />
           </div>
           <ul class="search__results" id="searchResults" hidden></ul>
         </div>
-        <a class="btn btn--primary nav__cta" href="index.html#join">Join Us</a>
       </div>
       <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -45,29 +42,26 @@
 
   <!-- ============================ PAGE HEADER ============================ -->
   <section class="hero hero--page">
-    <div class="hero__overlay"></div>
     <div class="container hero__content">
-      <span class="eyebrow">We’d love to hear from you</span>
       <h1 class="hero__title">Contact Us</h1>
-      <p class="hero__lede">Have a question, want to request our free resources, or just want to say hello? Reach out anytime — and subscribe below to get new resources every month.</p>
     </div>
   </section>
 
   <!-- ============================ CONTACT + SUBSCRIBE ============================ -->
-  <section class="section">
+  <section class="section" id="get-in-touch" data-search-title="Contact Us">
     <div class="container contact">
-      <div class="reveal">
+      <div>
         <span class="kicker">Get in touch</span>
         <h2>Say hello.</h2>
         <p>Email us with any questions about our workshops, resources, or how to get involved. We read every message.</p>
         <a class="contact__email" href="mailto:financeformovement@gmail.com">financeformovement@gmail.com</a>
         <div class="contact__socials">
-          <a class="btn btn--navy" href="https://www.instagram.com/financeformovement" target="_blank" rel="noopener">Instagram&nbsp;@financeformovement</a>
-          <a class="btn btn--navy" href="https://www.tiktok.com/@financeformovement" target="_blank" rel="noopener">TikTok&nbsp;@financeformovement</a>
+          <a class="btn btn--outline" href="https://www.instagram.com/financeformovement" target="_blank" rel="noopener">Instagram @financeformovement</a>
+          <a class="btn btn--outline" href="https://www.tiktok.com/@financeformovement" target="_blank" rel="noopener">TikTok @financeformovement</a>
         </div>
       </div>
 
-      <div class="subscribe reveal" id="subscribe">
+      <div class="subscribe" id="subscribe">
         <div class="subscribe__head">
           <h3>Subscribe (It’s Free!)</h3>
           <p>Get 1–2 new financial literacy resources in your inbox each month.</p>
@@ -75,7 +69,7 @@
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLScbQ8vuB9cxMKt9B0ub5Y5FhvicDdKJ44X4X2WYXo2jIOpClw/viewform?embedded=true"
           title="Finance For Movement subscription form"
-          loading="lazy">Loading…</iframe>
+         >Loading…</iframe>
       </div>
     </div>
   </section>

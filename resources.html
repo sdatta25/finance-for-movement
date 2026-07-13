@@ -6,9 +6,6 @@
   <title>Resource Hub — Finance For Movement</title>
   <meta name="description" content="Free, teen-built financial literacy resources for K–8 students. Click any resource to view the full-length lesson on Canva." />
   <link rel="icon" href="images/logo.png" type="image/png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -18,7 +15,7 @@
     <div class="container nav__inner">
       <a class="brand" href="index.html" aria-label="Finance For Movement home">
         <span class="brand__logo"><img src="images/logo.png" alt="Finance For Movement logo" /></span>
-        <span class="brand__text">Finance&nbsp;For<br/><strong>Movement<span class="tm">™</span></strong></span>
+        <span class="brand__text">Finance For<br/><strong>Movement<span class="tm">™</span></strong></span>
       </a>
       <nav class="nav__links" aria-label="Primary">
         <a href="index.html">Home</a>
@@ -28,14 +25,14 @@
         <a href="contact.html">Contact</a>
       </nav>
       <div class="nav__actions">
+        <a class="btn btn--primary nav__cta" href="index.html#join">Join Us</a>
         <div class="search">
           <div class="search__bar">
             <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-            <input type="search" id="searchInput" placeholder="Search…" autocomplete="off" aria-label="Search the site" />
+            <input type="search" id="searchInput" placeholder="Search" autocomplete="off" aria-label="Search the site" />
           </div>
           <ul class="search__results" id="searchResults" hidden></ul>
         </div>
-        <a class="btn btn--primary nav__cta" href="index.html#join">Join Us</a>
       </div>
       <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -45,42 +42,65 @@
 
   <!-- ============================ PAGE HEADER ============================ -->
   <section class="hero hero--page">
-    <div class="hero__overlay"></div>
     <div class="container hero__content">
-      <span class="eyebrow">Free · Built by teens</span>
+      <p class="hero__eyebrow">Free · Built by teens</p>
       <h1 class="hero__title">Resource Hub</h1>
-      <p class="hero__lede">Click any resource below to view the full-length lesson on Canva — all completely free to use in your classroom, program, or home.</p>
+      <p class="hero__lede">Click any resource below to take a look at the full-length lesson — all completely free to use in your classroom, program, or home.</p>
     </div>
   </section>
 
   <!-- ============================ RESOURCES ============================ -->
-  <section class="section">
+  <section class="section" id="resources" data-search-title="Resource Hub">
     <div class="container">
       <div class="res-grid">
-        <a class="res-card reveal" href="https://www.canva.com/design/DAGomqwGYYE/V6itSEP0I3smgOn3RdwsUA/view" target="_blank" rel="noopener">
-          <div class="res-card__cover"><div class="res-card__icon">⚖️</div><h3>Needs vs. Wants</h3></div>
-          <div class="res-card__body"><p>Click the picture to take a look at the full length resource!</p><span class="res-card__cta">View →</span></div>
+        <a class="res-card" href="https://www.canva.com/design/DAGomqwGYYE/V6itSEP0I3smgOn3RdwsUA/view" target="_blank" rel="noopener">
+          <img src="images/res-needs-wants.png" alt="Needs vs. Wants — Finance For Movement lesson cover" />
+          <div class="res-card__body">
+            <div><h3>Needs vs. Wants</h3><p>Click the picture to take a look at the full length resource!</p></div>
+            <span class="res-card__cta">View →</span>
+          </div>
         </a>
-        <a class="res-card reveal" href="https://www.canva.com/design/DAGsoywZTMM/I21rIfuGCimVednnxJX6NA/view" target="_blank" rel="noopener">
-          <div class="res-card__cover"><div class="res-card__icon">💳</div><h3>Credit vs. Debit</h3></div>
-          <div class="res-card__body"><p>Click the picture to take a look at the full length resource!</p><span class="res-card__cta">View →</span></div>
+        <a class="res-card" href="https://www.canva.com/design/DAGsoywZTMM/I21rIfuGCimVednnxJX6NA/view" target="_blank" rel="noopener">
+          <img src="images/res-credit-debit.png" alt="Credit vs. Debit Cards — Finance For Movement lesson cover" />
+          <div class="res-card__body">
+            <div><h3>Credit vs. Debit</h3><p>Click the picture to take a look at the full length resource!</p></div>
+            <span class="res-card__cta">View →</span>
+          </div>
         </a>
-        <a class="res-card reveal" href="https://www.canva.com/design/DAGsi5Vdy-U/MCl0ezB8Wp6q-DMTyDu0YQ/view" target="_blank" rel="noopener">
-          <div class="res-card__cover"><div class="res-card__icon">🧾</div><h3>What is a Receipt?</h3></div>
-          <div class="res-card__body"><p>Click the picture to take a look at the full length resource!</p><span class="res-card__cta">View →</span></div>
+        <a class="res-card" href="https://www.canva.com/design/DAGsi5Vdy-U/MCl0ezB8Wp6q-DMTyDu0YQ/view" target="_blank" rel="noopener">
+          <img src="images/res-receipt.png" alt="What is a Receipt? — Finance For Movement lesson cover" />
+          <div class="res-card__body">
+            <div><h3>What is a Receipt?</h3><p>Click the picture to take a look at the full length resource!</p></div>
+            <span class="res-card__cta">View →</span>
+          </div>
         </a>
-        <a class="res-card reveal" href="https://www.canva.com/design/DAGsidllfMQ/N7gnNMOibTGH23f1NgLw7Q/view" target="_blank" rel="noopener">
-          <div class="res-card__cover"><div class="res-card__icon">🐖</div><h3>Why Saving Matters</h3></div>
-          <div class="res-card__body"><p>Click the picture to take a look at the full length resource!</p><span class="res-card__cta">View →</span></div>
+        <a class="res-card" href="https://www.canva.com/design/DAGsidllfMQ/N7gnNMOibTGH23f1NgLw7Q/view" target="_blank" rel="noopener">
+          <img src="images/res-saving.png" alt="Why Saving Matters — Finance For Movement lesson cover" />
+          <div class="res-card__body">
+            <div><h3>Why Saving Matters</h3><p>Click the picture to take a look at the full length resource!</p></div>
+            <span class="res-card__cta">View →</span>
+          </div>
         </a>
       </div>
 
-      <h2 class="res-sub reveal">Some more topics!</h2>
+      <h2 class="res-sub">Some more topics!</h2>
       <div class="res-grid">
-        <div class="res-card res-card--soon reveal"><div class="res-card__cover"><span class="res-badge">Coming soon</span><div class="res-card__icon">💰</div><h3>Budgeting Basics</h3></div><div class="res-card__body"><p>New resource on the way.</p></div></div>
-        <div class="res-card res-card--soon reveal"><div class="res-card__cover"><span class="res-badge">Coming soon</span><div class="res-card__icon">🎯</div><h3>Setting Goals</h3></div><div class="res-card__body"><p>New resource on the way.</p></div></div>
-        <div class="res-card res-card--soon reveal"><div class="res-card__cover"><span class="res-badge">Coming soon</span><div class="res-card__icon">🏦</div><h3>What is a Bank?</h3></div><div class="res-card__body"><p>New resource on the way.</p></div></div>
-        <div class="res-card res-card--soon reveal"><div class="res-card__cover"><span class="res-badge">Coming soon</span><div class="res-card__icon">📈</div><h3>Earning &amp; Spending</h3></div><div class="res-card__body"><p>New resource on the way.</p></div></div>
+        <div class="res-card">
+          <img src="images/res-adults-spend.png" alt="What do adults spend their money on? — Finance For Movement lesson cover" />
+          <div class="res-card__body"><div><h3>What do adults spend their money on?</h3><p>Full resource coming soon.</p></div></div>
+        </div>
+        <div class="res-card">
+          <img src="images/res-budget.png" alt="What is a budget? — Finance For Movement lesson cover" />
+          <div class="res-card__body"><div><h3>What is a budget?</h3><p>Full resource coming soon.</p></div></div>
+        </div>
+        <div class="res-card">
+          <img src="images/res-get-paid.png" alt="3 things to do when you get paid — Finance For Movement lesson cover" />
+          <div class="res-card__body"><div><h3>3 things to do when you get paid</h3><p>Full resource coming soon.</p></div></div>
+        </div>
+        <div class="res-card">
+          <img src="images/res-bank-account.png" alt="What is a bank account? — Finance For Movement lesson cover" />
+          <div class="res-card__body"><div><h3>What is a bank account?</h3><p>Full resource coming soon.</p></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -88,7 +108,7 @@
   <!-- ============================ CTA BAND ============================ -->
   <section class="section ctaband">
     <div class="container">
-      <div class="ctaband__inner reveal">
+      <div class="ctaband__inner">
         <h2>Want these resources delivered monthly?</h2>
         <p>Subscribe for free and we’ll send 1–2 new resources straight to your inbox each month.</p>
         <a class="btn btn--light" href="contact.html#subscribe">Subscribe — It’s Free</a>

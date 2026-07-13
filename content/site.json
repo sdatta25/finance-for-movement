@@ -1,0 +1,105 @@
+{
+  "stats": [
+    {
+      "number": "14,000+",
+      "label": "Students reached online"
+    },
+    {
+      "number": "60+",
+      "label": "Students reached in person"
+    },
+    {
+      "number": "15,000+",
+      "label": "Social media interactions"
+    },
+    {
+      "number": "15+",
+      "label": "Resources distributed"
+    }
+  ],
+  "event": {
+    "month": "JUN",
+    "day": "6",
+    "title": "Suwanee Asian Festival",
+    "description": "June 6th, 2026 · In-person outreach & hands-on activities for kids and families."
+  },
+  "testimonials": [
+    {
+      "quote": "I want to do it again, the bookmark making was fun!",
+      "name": "Samantha",
+      "grade": "4th grade"
+    },
+    {
+      "quote": "It was fun and I learned that needs are what we need to live, and wants are those that we don’t need to survive.",
+      "name": "Alex",
+      "grade": "3rd grade"
+    },
+    {
+      "quote": "Wants are toys, candy, and also stickers. I want to do the crafts again!",
+      "name": "Gabby",
+      "grade": "4th grade"
+    }
+  ],
+  "instagramPosts": [
+    {
+      "url": "https://www.instagram.com/p/DK0Du4cygEy/"
+    },
+    {
+      "url": "https://www.instagram.com/p/DLFnYr3MN8Z/"
+    }
+  ],
+  "board": {
+    "title": "2026 Executive Board",
+    "items": [
+      {
+        "label": "Priority Deadline",
+        "value": "6/20, 11:59 PM EST"
+      },
+      {
+        "label": "Final Deadline",
+        "value": "7/20, 11:59 PM EST"
+      }
+    ],
+    "buttonText": "Apply for the Board",
+    "link": "https://forms.gle/nKR6Rkd7Ayn1Bd1P7"
+  },
+  "internship": {
+    "title": "2026 High School Summer Internship",
+    "items": [
+      {
+        "label": "Deadline",
+        "value": "June 15th, 11:59 PM EST"
+      },
+      {
+        "label": "Format",
+        "value": "Remote · work at your own pace"
+      }
+    ],
+    "buttonText": "Apply for the Internship",
+    "link": "https://forms.gle/kyUwQWP2EMzPiVjS9"
+  },
+  "faq": [
+    {
+      "question": "Who are these resources for?",
+      "answer": "Anyone. This resource is designed for schools, nonprofits, and any individuals or organizations serving students in grades K–8. The materials work for after-school programs and home learning, and all full-length resources are provided at no cost."
+    },
+    {
+      "question": "Why use our resources?",
+      "answer": "We are youth-led and understand student needs. Our resources are fully developed by teens and focused for kids with fun, relatable content for their age. All full-length resources are completely free."
+    },
+    {
+      "question": "What do you get?",
+      "answer": "Each month, you will receive 1–2 resources (slides + recorded). These can be used as teaching materials for English exposure, personal finance lessons, or both."
+    },
+    {
+      "question": "How do you utilize these resources?",
+      "answer": "The materials are flexible and adaptable. You may use them as a full lesson or a mini workshop, and customize them based on your group size and time constraints. Examples are available in our Resource Hub."
+    }
+  ],
+  "contact": {
+    "email": "financeformovement@gmail.com",
+    "instagram": "https://www.instagram.com/financeformovement",
+    "tiktok": "https://www.tiktok.com/@financeformovement",
+    "formEmbedUrl": "https://docs.google.com/forms/d/e/1FAIpQLScbQ8vuB9cxMKt9B0ub5Y5FhvicDdKJ44X4X2WYXo2jIOpClw/viewform?embedded=true"
+  }
+}

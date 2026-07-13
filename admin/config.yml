@@ -1,0 +1,133 @@
+# Decap CMS configuration — Finance For Movement
+# Editors sign in with their GitHub account (must have write access to the repo).
+# Netlify acts as the OAuth provider (Site settings → Access & security → OAuth).
+
+backend:
+  name: github
+  repo: sdatta25/finance-for-movement
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+  commit_messages:
+    update: "Update {{collection}} via website admin"
+    uploadMedia: "Upload {{path}} via website admin"
+
+# Uncomment while testing locally with `npx decap-server`:
+# local_backend: true
+
+media_folder: "images"
+public_folder: "images"
+
+site_url: /
+logo_url: /images/logo.png
+
+collections:
+  - name: site
+    label: "Site Content"
+    files:
+      - name: main
+        label: "Homepage & General"
+        file: content/site.json
+        fields:
+          - label: "Impact Stats"
+            name: stats
+            widget: list
+            summary: "{{fields.number}} — {{fields.label}}"
+            fields:
+              - { label: "Number", name: number, widget: string, hint: "e.g. 14,000+" }
+              - { label: "Label", name: label, widget: string }
+
+          - label: "Next Event"
+            name: event
+            widget: object
+            fields:
+              - { label: "Month (3 letters)", name: month, widget: string }
+              - { label: "Day", name: day, widget: string }
+              - { label: "Event name", name: title, widget: string }
+              - { label: "Details line", name: description, widget: string }
+
+          - label: "Student Testimonials"
+            name: testimonials
+            widget: list
+            summary: "{{fields.name}} ({{fields.grade}})"
+            fields:
+              - { label: "Quote", name: quote, widget: text }
+              - { label: "Student name", name: name, widget: string }
+              - { label: "Grade", name: grade, widget: string }
+
+          - label: "Instagram Posts (shown under testimonials)"
+            name: instagramPosts
+            widget: list
+            max: 2
+            min: 2
+            summary: "{{fields.url}}"
+            fields:
+              - { label: "Post URL", name: url, widget: string, hint: "e.g. https://www.instagram.com/p/XXXX/" }
+
+          - label: "Executive Board card"
+            name: board
+            widget: object
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - label: "Rows"
+                name: items
+                widget: list
+                fields:
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "Value", name: value, widget: string }
+              - { label: "Button text", name: buttonText, widget: string }
+              - { label: "Application link", name: link, widget: string }
+
+          - label: "Internship card"
+            name: internship
+            widget: object
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - label: "Rows"
+                name: items
+                widget: list
+                fields:
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "Value", name: value, widget: string }
+              - { label: "Button text", name: buttonText, widget: string }
+              - { label: "Application link", name: link, widget: string }
+
+          - label: "FAQ"
+            name: faq
+            widget: list
+            summary: "{{fields.question}}"
+            fields:
+              - { label: "Question", name: question, widget: string }
+              - { label: "Answer", name: answer, widget: text }
+
+          - label: "Contact & Links"
+            name: contact
+            widget: object
+            fields:
+              - { label: "Email", name: email, widget: string }
+              - { label: "Instagram URL", name: instagram, widget: string }
+              - { label: "TikTok URL", name: tiktok, widget: string }
+              - { label: "Subscription form embed URL", name: formEmbedUrl, widget: string, hint: "Google Form link ending in ?embedded=true" }
+
+      - name: resources
+        label: "Resource Hub"
+        file: content/resources.json
+        fields:
+          - label: "Lessons (with Canva links)"
+            name: lessons
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Description", name: description, widget: string }
+              - { label: "Cover image", name: image, widget: image }
+              - { label: "Canva link", name: link, widget: string }
+
+          - label: "More topics (coming soon)"
+            name: moreTopics
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Note", name: note, widget: string }
+              - { label: "Cover image", name: image, widget: image }
