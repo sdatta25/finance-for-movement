@@ -136,6 +136,19 @@ p  { margin: 0 0 1rem; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
 .about__media img { border: 1px solid var(--line); border-radius: 4px; }
 
+/* About sub-sections: Mission / Vision / SDG */
+.about__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 3rem; }
+.pillar { border: 1px solid var(--line); border-radius: 4px; padding: 1.6rem 1.5rem; background: #fff; border-top: 3px solid var(--navy); }
+.pillar h3 { margin-bottom: .5rem; }
+.pillar p { color: var(--muted); margin: 0; font-size: .95rem; }
+
+/* Partners & sponsors */
+.partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.4rem; max-width: 900px; margin: 0 auto; }
+.partner { border: 1px solid var(--line); border-radius: 4px; background: #fff; min-height: 130px; padding: 1.6rem; display: flex; align-items: center; justify-content: center; text-align: center; }
+.partner img { max-height: 72px; width: auto; }
+.partner__name { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; color: var(--navy); }
+a.partner:hover { border-color: var(--navy); }
+
 /* Why It Matters */
 .problem__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
 .problem__card { border: 1px solid rgba(255,255,255,.22); border-radius: 4px; padding: 1.5rem 1.2rem; }
@@ -178,7 +191,8 @@ p  { margin: 0 0 1rem; }
 .gallery img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 1px solid var(--line); border-radius: 4px; }
 
 /* Events */
-.event { display: flex; align-items: center; gap: 1.4rem; max-width: 620px; margin: 0 auto; border: 1px solid var(--line); border-radius: 4px; padding: 1.4rem 1.6rem; background: #fff; }
+.events-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; max-width: 820px; margin: 0 auto; }
+.event { display: flex; align-items: center; gap: 1.4rem; margin: 0; border: 1px solid var(--line); border-radius: 4px; padding: 1.4rem 1.6rem; background: #fff; }
 .event__date { flex: 0 0 auto; width: 74px; height: 74px; border-radius: 4px; background: var(--navy); color: #fff; display: grid; place-content: center; text-align: center; }
 .event__month { font-size: .78rem; letter-spacing: .08em; }
 .event__day { font-family: var(--font-head); font-weight: 700; font-size: 1.7rem; line-height: 1; }
@@ -209,26 +223,24 @@ p  { margin: 0 0 1rem; }
 .faq details[open] summary::after { content: '−'; }
 .faq details p { margin: .8rem 0 0; color: var(--muted); }
 
-/* ---------------- Resource Hub page ---------------- */
-.res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
-.res-card { display: block; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #fff; }
-.res-card:hover .res-card__cta { text-decoration: underline; }
-.res-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-.res-card__body { padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-top: 1px solid var(--line); }
-.res-card__body h3 { margin: 0 0 .2rem; font-size: 1.05rem; }
-.res-card__body p { margin: 0; color: var(--muted); font-size: .85rem; }
-.res-card__cta { color: var(--navy); font-weight: 600; font-size: .9rem; white-space: nowrap; }
-.res-sub { text-align: center; margin: 3rem 0 1.4rem; }
+/* ---------------- Literacy Kits page ---------------- */
+.kit-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.kit-includes { list-style: none; padding: 0; margin: 1.4rem 0 0; display: grid; gap: .7rem; }
+.kit-includes li { position: relative; padding-left: 1.9rem; color: var(--ink); }
+.kit-includes li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--navy); font-weight: 700; }
+.kit-request { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #fff; }
+.kit-request__head { background: var(--navy); color: #fff; padding: 1rem 1.3rem; }
+.kit-request__head h3 { color: #fff; margin: 0; }
+.kit-request__head p { margin: .2rem 0 0; color: rgba(255,255,255,.75); font-size: .88rem; }
+.kit-request__body { padding: 1.6rem; }
+.kit-request__body p { color: var(--muted); }
+.kit-iframe { width: 100%; height: 720px; border: 0; display: block; background: #fff; }
 
 /* ---------------- Contact page ---------------- */
-.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.contact-single { text-align: center; }
 .contact__email { display: inline-block; font-family: var(--font-head); font-size: 1.25rem; color: var(--navy); font-weight: 700; margin: .4rem 0 1.4rem; text-decoration: underline; }
-.contact__socials { display: flex; flex-direction: column; gap: .6rem; align-items: flex-start; }
-.subscribe { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #fff; }
-.subscribe__head { background: var(--navy); color: #fff; padding: 1rem 1.3rem; }
-.subscribe__head h3 { color: #fff; margin: 0; }
-.subscribe__head p { margin: .2rem 0 0; color: rgba(255,255,255,.75); font-size: .88rem; }
-.subscribe iframe { width: 100%; height: 720px; border: 0; display: block; background: #fff; }
+.contact-single .contact__socials { justify-content: center; }
+.contact__socials { display: flex; flex-wrap: wrap; gap: .6rem; }
 
 /* ---------------- Footer ---------------- */
 .footer { background: var(--navy-deep); color: rgba(255,255,255,.8); padding: 3rem 0 1.4rem; }
@@ -258,8 +270,9 @@ p  { margin: 0 0 1rem; }
   .search__bar input { width: 100px; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
   .stat + .stat { border-left: 0; }
-  .grid-2, .contact, .join__grid, .res-grid { grid-template-columns: 1fr; }
+  .grid-2, .join__grid, .kit-layout, .events-list { grid-template-columns: 1fr; }
   .about__media { order: -1; }
+  .about__pillars { grid-template-columns: 1fr; }
   .problem__grid { grid-template-columns: repeat(2, 1fr); }
   .cards-3, .testi-grid { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }

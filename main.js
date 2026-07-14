@@ -18,20 +18,13 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
 let contentPromise = null;
 function loadContent() {
   contentPromise = contentPromise || (async () => {
-    const get = async (url) => {
-      try { return await (await fetch(url, { cache: 'no-cache' })).json(); }
-      catch { return null; }
-    };
-    const [site, resources] = await Promise.all([
-      get('content/site.json'),
-      get('content/resources.json'),
-    ]);
-    return { site, resources };
+    try { const site = await (await fetch('content/site.json', { cache: 'no-cache' })).json(); return { site }; }
+    catch { return { site: null }; }
   })();
   return contentPromise;
 }
 
-function hydrate(root, { site, resources }) {
+function hydrate(root, { site }) {
   if (site) {
     // Impact stats
     const stats = root.querySelector('#impact .stats__grid');
@@ -41,12 +34,53 @@ function hydrate(root, { site, resources }) {
       ).join('');
     }
 
-    // Event
-    const event = root.querySelector('#events .event');
-    if (event && site.event) {
-      event.innerHTML = `
-        <div class="event__date"><span class="event__month">${esc(site.event.month)}</span><span class="event__day">${esc(site.event.day)}</span></div>
-        <div class="event__body"><h3>${esc(site.event.title)}</h3><p>${esc(site.event.description)}</p></div>`;
+    // About: mission / vision / SDG
+    if (site.about) {
+      ['mission', 'vision', 'sdg'].forEach((k) => {
+        const el = root.querySelector(`[data-about="${k}"]`);
+        if (el && site.about[k]) el.textContent = site.about[k];
+      });
+    }
+
+    // Events (list)
+    const eventsList = root.querySelector('#events .events-list');
+    if (eventsList && site.events?.length) {
+      eventsList.innerHTML = site.events.map((e) => `
+        <div class="event">
+          <div class="event__date"><span class="event__month">${esc(e.month)}</span><span class="event__day">${esc(e.day)}</span></div>
+          <div class="event__body"><h3>${esc(e.title)}</h3><p>${esc(e.description)}</p></div>
+        </div>`).join('');
+    }
+
+    // Partners
+    const partners = root.querySelector('#partners .partners-grid');
+    if (partners && site.partners?.length) {
+      partners.innerHTML = site.partners.map((p) => {
+        const inner = p.logo
+          ? `<img src="${esc(p.logo)}" alt="${esc(p.name)} logo" />`
+          : `<span class="partner__name">${esc(p.name)}</span>`;
+        return p.link
+          ? `<a class="partner" href="${esc(p.link)}" target="_blank" rel="noopener">${inner}</a>`
+          : `<div class="partner">${inner}</div>`;
+      }).join('');
+    }
+
+    // Literacy Kits page
+    if (site.literacyKits) {
+      const kit = site.literacyKits;
+      const intro = root.querySelector('[data-kit="intro"]');
+      if (intro && kit.intro) intro.textContent = kit.intro;
+      const includes = root.querySelector('[data-kit="includes"]');
+      if (includes && kit.includes?.length) {
+        includes.innerHTML = kit.includes.map((i) => `<li>${esc(i)}</li>`).join('');
+      }
+      const formBox = root.querySelector('[data-kit="form"]');
+      if (formBox) {
+        formBox.innerHTML = kit.formEmbedUrl
+          ? `<iframe class="kit-iframe" src="${esc(kit.formEmbedUrl)}" title="Literacy kit request form" loading="lazy">Loading…</iframe>`
+          : `<p>Our request form will be available here shortly. In the meantime, email us and we'll get a kit on the way.</p>
+             <a class="btn btn--primary" href="mailto:financeformovement@gmail.com?subject=Literacy%20Kit%20Request">Email us to request a kit</a>`;
+      }
     }
 
     // Testimonials
@@ -98,29 +132,6 @@ function hydrate(root, { site, resources }) {
     const socials = root.querySelectorAll('#get-in-touch .contact__socials a');
     if (socials[0] && c.instagram) socials[0].href = c.instagram;
     if (socials[1] && c.tiktok) socials[1].href = c.tiktok;
-    const form = root.querySelector('.subscribe iframe');
-    if (form && c.formEmbedUrl) form.setAttribute('src', c.formEmbedUrl);
-  }
-
-  if (resources) {
-    const grids = root.querySelectorAll('#resources .res-grid');
-    if (grids[0] && resources.lessons?.length) {
-      grids[0].innerHTML = resources.lessons.map((r) => `
-        <a class="res-card" href="${esc(r.link)}" target="_blank" rel="noopener">
-          <img src="${esc(r.image)}" alt="${esc(r.title)} — Finance For Movement lesson cover" />
-          <div class="res-card__body">
-            <div><h3>${esc(r.title)}</h3><p>${esc(r.description)}</p></div>
-            <span class="res-card__cta">View →</span>
-          </div>
-        </a>`).join('');
-    }
-    if (grids[1] && resources.moreTopics?.length) {
-      grids[1].innerHTML = resources.moreTopics.map((r) => `
-        <div class="res-card">
-          <img src="${esc(r.image)}" alt="${esc(r.title)} — Finance For Movement lesson cover" />
-          <div class="res-card__body"><div><h3>${esc(r.title)}</h3><p>${esc(r.note)}</p></div></div>
-        </div>`).join('');
-    }
   }
 }
 
@@ -259,7 +270,7 @@ function hydrate(root, { site, resources }) {
   const results = document.getElementById('searchResults');
   if (!input || !results) return;
 
-  const PAGES = ['index.html', 'resources.html', 'contact.html'];
+  const PAGES = ['index.html', 'literacy-kits.html', 'contact.html'];
   let index = null;
   let building = null;
 

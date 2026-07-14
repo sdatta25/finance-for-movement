@@ -37,11 +37,20 @@ collections:
               - { label: "Number", name: number, widget: string, hint: "e.g. 14,000+" }
               - { label: "Label", name: label, widget: string }
 
-          - label: "Next Event"
-            name: event
+          - label: "About — Mission / Vision / SDG"
+            name: about
             widget: object
             fields:
-              - { label: "Month (3 letters)", name: month, widget: string }
+              - { label: "Mission", name: mission, widget: text }
+              - { label: "Vision", name: vision, widget: text }
+              - { label: "UN SDG Alignment", name: sdg, widget: text }
+
+          - label: "Upcoming Events"
+            name: events
+            widget: list
+            summary: "{{fields.title}} ({{fields.month}} {{fields.day}})"
+            fields:
+              - { label: "Month (3 letters)", name: month, widget: string, hint: "e.g. SEP" }
               - { label: "Day", name: day, widget: string }
               - { label: "Event name", name: title, widget: string }
               - { label: "Details line", name: description, widget: string }
@@ -63,6 +72,26 @@ collections:
             summary: "{{fields.url}}"
             fields:
               - { label: "Post URL", name: url, widget: string, hint: "e.g. https://www.instagram.com/p/XXXX/" }
+
+          - label: "Partners & Sponsors"
+            name: partners
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Organization name", name: name, widget: string }
+              - { label: "Logo (optional)", name: logo, widget: image, required: false, hint: "Leave blank to show the name as text" }
+              - { label: "Website link (optional)", name: link, widget: string, required: false }
+
+          - label: "Literacy Kits"
+            name: literacyKits
+            widget: object
+            fields:
+              - { label: "Intro paragraph", name: intro, widget: text }
+              - label: "What's included"
+                name: includes
+                widget: list
+                field: { label: "Item", name: item, widget: string }
+              - { label: "Request form embed URL (optional)", name: formEmbedUrl, widget: string, required: false, hint: "Google Form link ending in ?embedded=true. Leave blank to show the email button." }
 
           - label: "Executive Board card"
             name: board
@@ -107,27 +136,3 @@ collections:
               - { label: "Email", name: email, widget: string }
               - { label: "Instagram URL", name: instagram, widget: string }
               - { label: "TikTok URL", name: tiktok, widget: string }
-              - { label: "Subscription form embed URL", name: formEmbedUrl, widget: string, hint: "Google Form link ending in ?embedded=true" }
-
-      - name: resources
-        label: "Resource Hub"
-        file: content/resources.json
-        fields:
-          - label: "Lessons (with Canva links)"
-            name: lessons
-            widget: list
-            summary: "{{fields.title}}"
-            fields:
-              - { label: "Title", name: title, widget: string }
-              - { label: "Description", name: description, widget: string }
-              - { label: "Cover image", name: image, widget: image }
-              - { label: "Canva link", name: link, widget: string }
-
-          - label: "More topics (coming soon)"
-            name: moreTopics
-            widget: list
-            summary: "{{fields.title}}"
-            fields:
-              - { label: "Title", name: title, widget: string }
-              - { label: "Note", name: note, widget: string }
-              - { label: "Cover image", name: image, widget: image }

@@ -1,64 +1,49 @@
 {
   "stats": [
-    {
-      "number": "14,000+",
-      "label": "Students reached online"
-    },
-    {
-      "number": "60+",
-      "label": "Students reached in person"
-    },
-    {
-      "number": "15,000+",
-      "label": "Social media interactions"
-    },
-    {
-      "number": "15+",
-      "label": "Resources distributed"
-    }
+    { "number": "14,000+", "label": "Students reached online" },
+    { "number": "60+", "label": "Students reached in person" },
+    { "number": "15,000+", "label": "Social media interactions" },
+    { "number": "15+", "label": "Resources distributed" }
   ],
-  "event": {
-    "month": "JUN",
-    "day": "6",
-    "title": "Suwanee Asian Festival",
-    "description": "June 6th, 2026 · In-person outreach & hands-on activities for kids and families."
+  "about": {
+    "mission": "To make financial literacy accessible, engaging, and fun for every young learner — starting with the communities that need it most. (Full mission statement coming soon.)",
+    "vision": "A world where every child grows up equipped to make confident, thoughtful financial decisions. (Full vision statement coming soon.)",
+    "sdg": "Our work supports the United Nations Sustainable Development Goals — including Quality Education (SDG 4), No Poverty (SDG 1), and Reduced Inequalities (SDG 10). (Detailed alignment coming soon.)"
   },
+  "events": [
+    { "month": "SEP", "day": "12", "title": "Duluth Off the Rail: 150", "description": "September 12th, 2026 · In-person outreach & hands-on activities." },
+    { "month": "SEP", "day": "19", "title": "Suwanee Festival", "description": "September 19th, 2026 · Details to be announced." }
+  ],
   "testimonials": [
-    {
-      "quote": "I want to do it again, the bookmark making was fun!",
-      "name": "Samantha",
-      "grade": "4th grade"
-    },
-    {
-      "quote": "It was fun and I learned that needs are what we need to live, and wants are those that we don’t need to survive.",
-      "name": "Alex",
-      "grade": "3rd grade"
-    },
-    {
-      "quote": "Wants are toys, candy, and also stickers. I want to do the crafts again!",
-      "name": "Gabby",
-      "grade": "4th grade"
-    }
+    { "quote": "I want to do it again, the bookmark making was fun!", "name": "Samantha", "grade": "4th grade" },
+    { "quote": "It was fun and I learned that needs are what we need to live, and wants are those that we don’t need to survive.", "name": "Alex", "grade": "3rd grade" },
+    { "quote": "Wants are toys, candy, and also stickers. I want to do the crafts again!", "name": "Gabby", "grade": "4th grade" }
   ],
   "instagramPosts": [
-    {
-      "url": "https://www.instagram.com/p/DK0Du4cygEy/"
-    },
-    {
-      "url": "https://www.instagram.com/p/DLFnYr3MN8Z/"
-    }
+    { "url": "https://www.instagram.com/p/DK0Du4cygEy/" },
+    { "url": "https://www.instagram.com/p/DLFnYr3MN8Z/" }
   ],
+  "partners": [
+    { "name": "United Community Bank", "logo": "", "link": "" },
+    { "name": "Peach State Federal Credit Union", "logo": "", "link": "https://www.peachstatefcu.org/" }
+  ],
+  "literacyKits": {
+    "intro": "We create and hand-deliver free literacy kits to organizations serving young learners. Each kit is geared toward upper elementary students (3rd–5th grade), and we aim to serve immigrant and/or low-income students and organizations.",
+    "includes": [
+      "Piggy bank",
+      "Pencil",
+      "Our very own money management workbook",
+      "Finance tip of the day bookmark",
+      "A handwritten note from our volunteers",
+      "Reusable tote"
+    ],
+    "formEmbedUrl": ""
+  },
   "board": {
     "title": "2026 Executive Board",
     "items": [
-      {
-        "label": "Priority Deadline",
-        "value": "6/20, 11:59 PM EST"
-      },
-      {
-        "label": "Final Deadline",
-        "value": "7/20, 11:59 PM EST"
-      }
+      { "label": "Priority Deadline", "value": "6/20, 11:59 PM EST" },
+      { "label": "Final Deadline", "value": "7/20, 11:59 PM EST" }
     ],
     "buttonText": "Apply for the Board",
     "link": "https://forms.gle/nKR6Rkd7Ayn1Bd1P7"
@@ -66,40 +51,21 @@
   "internship": {
     "title": "2026 High School Summer Internship",
     "items": [
-      {
-        "label": "Deadline",
-        "value": "June 15th, 11:59 PM EST"
-      },
-      {
-        "label": "Format",
-        "value": "Remote · work at your own pace"
-      }
+      { "label": "Deadline", "value": "June 15th, 11:59 PM EST" },
+      { "label": "Format", "value": "Remote · work at your own pace" }
     ],
     "buttonText": "Apply for the Internship",
     "link": "https://forms.gle/kyUwQWP2EMzPiVjS9"
   },
   "faq": [
-    {
-      "question": "Who are these resources for?",
-      "answer": "Anyone. This resource is designed for schools, nonprofits, and any individuals or organizations serving students in grades K–8. The materials work for after-school programs and home learning, and all full-length resources are provided at no cost."
-    },
-    {
-      "question": "Why use our resources?",
-      "answer": "We are youth-led and understand student needs. Our resources are fully developed by teens and focused for kids with fun, relatable content for their age. All full-length resources are completely free."
-    },
-    {
-      "question": "What do you get?",
-      "answer": "Each month, you will receive 1–2 resources (slides + recorded). These can be used as teaching materials for English exposure, personal finance lessons, or both."
-    },
-    {
-      "question": "How do you utilize these resources?",
-      "answer": "The materials are flexible and adaptable. You may use them as a full lesson or a mini workshop, and customize them based on your group size and time constraints. Examples are available in our Resource Hub."
-    }
+    { "question": "Who are these programs for?", "answer": "Anyone. Our programs are designed for schools, nonprofits, and any individuals or organizations serving students in grades K–8. They work for after-school programs and home learning, and everything we offer is provided at no cost." },
+    { "question": "Why work with us?", "answer": "We are youth-led and understand student needs. Our materials are fully developed by teens and focused for kids with fun, relatable content for their age. Everything we offer is completely free." },
+    { "question": "What do you offer?", "answer": "Hands-on workshops, free literacy kits for organizations, and community events. Reach out and we'll help you find the right fit for your group." },
+    { "question": "How do organizations receive a literacy kit?", "answer": "Visit our Literacy Kits page to see what's included and request a kit. Kits are geared toward 3rd–5th graders and we prioritize immigrant and/or low-income students and organizations." }
   ],
   "contact": {
     "email": "financeformovement@gmail.com",
     "instagram": "https://www.instagram.com/financeformovement",
-    "tiktok": "https://www.tiktok.com/@financeformovement",
-    "formEmbedUrl": "https://docs.google.com/forms/d/e/1FAIpQLScbQ8vuB9cxMKt9B0ub5Y5FhvicDdKJ44X4X2WYXo2jIOpClw/viewform?embedded=true"
+    "tiktok": "https://www.tiktok.com/@financeformovement"
   }
 }

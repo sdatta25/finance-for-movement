@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us — Finance For Movement</title>
-  <meta name="description" content="Get in touch with Finance For Movement — questions, partnerships, literacy kits, or getting involved." />
+  <title>Literacy Kits — Finance For Movement</title>
+  <meta name="description" content="Free financial literacy kits for organizations serving upper-elementary (3rd–5th grade) students, with a focus on immigrant and low-income communities." />
   <link rel="icon" href="images/logo.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -20,10 +20,10 @@
       <nav class="nav__links" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="index.html#about">About</a>
-        <a href="literacy-kits.html">Literacy Kits</a>
+        <a href="literacy-kits.html" class="active">Literacy Kits</a>
         <a href="index.html#partners">Partners</a>
         <a href="index.html#faq">FAQ</a>
-        <a href="contact.html" class="active">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="nav__actions">
         <a class="btn btn--primary nav__cta" href="index.html#join">Join Us</a>
@@ -44,20 +44,37 @@
   <!-- ============================ PAGE HEADER ============================ -->
   <section class="hero hero--page">
     <div class="container hero__content">
-      <h1 class="hero__title">Contact Us</h1>
+      <p class="hero__eyebrow">Free · For organizations serving 3rd–5th graders</p>
+      <h1 class="hero__title">Literacy Kits</h1>
+      <p class="hero__lede" data-kit="intro">We create and hand-deliver free literacy kits to organizations serving young learners. Each kit is geared toward upper elementary students (3rd–5th grade), and we aim to serve immigrant and/or low-income students and organizations.</p>
     </div>
   </section>
 
-  <!-- ============================ CONTACT ============================ -->
-  <section class="section" id="get-in-touch" data-search-title="Contact Us">
-    <div class="container container--narrow contact-single">
-      <span class="kicker">Get in touch</span>
-      <h2>Say hello.</h2>
-      <p>Email us with any questions about our workshops, literacy kits, partnerships, or how to get involved. We read every message.</p>
-      <a class="contact__email" href="mailto:financeformovement@gmail.com">financeformovement@gmail.com</a>
-      <div class="contact__socials">
-        <a class="btn btn--outline" href="https://www.instagram.com/financeformovement" target="_blank" rel="noopener">Instagram @financeformovement</a>
-        <a class="btn btn--outline" href="https://www.tiktok.com/@financeformovement" target="_blank" rel="noopener">TikTok @financeformovement</a>
+  <!-- ============================ WHAT'S INCLUDED + REQUEST ============================ -->
+  <section class="section" id="literacy-kits" data-search-title="Literacy Kits">
+    <div class="container kit-layout">
+      <div>
+        <span class="kicker">What's Included</span>
+        <h2>Everything in a kit.</h2>
+        <ul class="kit-includes" data-kit="includes">
+          <li>Piggy bank</li>
+          <li>Pencil</li>
+          <li>Our very own money management workbook</li>
+          <li>Finance tip of the day bookmark</li>
+          <li>A handwritten note from our volunteers</li>
+          <li>Reusable tote</li>
+        </ul>
+      </div>
+
+      <div class="kit-request" id="request">
+        <div class="kit-request__head">
+          <h3>Request a Kit</h3>
+          <p>For organizations hoping to receive our kits.</p>
+        </div>
+        <div class="kit-request__body" data-kit="form">
+          <p>Our request form will be available here shortly. In the meantime, email us and we'll get a kit on the way.</p>
+          <a class="btn btn--primary" href="mailto:financeformovement@gmail.com?subject=Literacy%20Kit%20Request">Email us to request a kit</a>
+        </div>
       </div>
     </div>
   </section>
