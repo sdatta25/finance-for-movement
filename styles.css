@@ -280,6 +280,12 @@ a.partner:hover { border-color: var(--navy); }
 }
 @media (max-width: 520px) {
   .section { padding: 56px 0; }
-  .nav__cta { display: none; }
+  /* Keep the Join Us button visible on phones — compact the header to fit */
+  .nav__inner { gap: .6rem; }
+  .brand__text { display: none; }
+  .brand__logo { width: 38px; height: 38px; }
+  .nav__cta { padding: .5rem .85rem; font-size: .85rem; }
+  .search__bar { padding: .35rem .5rem; }
+  .search__bar input { width: 72px; font-size: .85rem; }
   .stats__grid { grid-template-columns: 1fr 1fr; }
 }

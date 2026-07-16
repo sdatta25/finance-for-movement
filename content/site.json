@@ -24,8 +24,8 @@
     { "url": "https://www.instagram.com/p/DLFnYr3MN8Z/" }
   ],
   "partners": [
-    { "name": "United Community Bank", "logo": "", "link": "" },
-    { "name": "Peach State Federal Credit Union", "logo": "", "link": "https://www.peachstatefcu.org/" }
+    { "name": "United Community Bank", "logo": "images/partner-ucb.svg", "link": "https://www.ucbi.com/" },
+    { "name": "Peach State Federal Credit Union", "logo": "images/partner-peachstate.png", "link": "https://www.peachstatefcu.org/" }
   ],
   "literacyKits": {
     "intro": "We create and hand-deliver free literacy kits to organizations serving young learners. Each kit is geared toward upper elementary students (3rd–5th grade), and we aim to serve immigrant and/or low-income students and organizations.",
