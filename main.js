@@ -83,6 +83,24 @@ function hydrate(root, { site }) {
       }
     }
 
+    // Site photos: about image, gallery, posters
+    if (site.images) {
+      const im = site.images;
+      const aboutImg = root.querySelector('.about__media img');
+      if (aboutImg && im.about) aboutImg.setAttribute('src', im.about);
+      const gallery = root.querySelector('#gallery .gallery');
+      if (gallery && im.gallery?.length) {
+        gallery.innerHTML = im.gallery.map((g) =>
+          `<img src="${esc(g.image)}" alt="Finance For Movement in the community" />`
+        ).join('');
+      }
+      const cells = root.querySelectorAll('.socialgrid__cell');
+      if (cells.length >= 4 && im.posters?.length >= 2) {
+        cells[2].innerHTML = `<img src="${esc(im.posters[0].image)}" alt="Finance For Movement poster" />`;
+        cells[3].innerHTML = `<a href="#join"><img src="${esc(im.posters[1].image)}" alt="Join us poster" /></a>`;
+      }
+    }
+
     // Testimonials
     const testi = root.querySelector('.testi-grid');
     if (testi && site.testimonials?.length) {

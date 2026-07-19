@@ -55,6 +55,26 @@ collections:
               - { label: "Event name", name: title, widget: string }
               - { label: "Details line", name: description, widget: string }
 
+          - label: "Site Photos"
+            name: images
+            widget: object
+            fields:
+              - { label: "About section photo", name: about, widget: image }
+              - label: "Gallery photos (In the Community)"
+                name: gallery
+                widget: list
+                summary: "{{fields.image}}"
+                fields:
+                  - { label: "Photo", name: image, widget: image }
+              - label: "Community posters (exactly 2, shown under Instagram posts)"
+                name: posters
+                widget: list
+                min: 2
+                max: 2
+                summary: "{{fields.image}}"
+                fields:
+                  - { label: "Poster image", name: image, widget: image }
+
           - label: "Student Testimonials"
             name: testimonials
             widget: list
