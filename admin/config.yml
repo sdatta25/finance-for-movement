@@ -37,13 +37,14 @@ collections:
               - { label: "Number", name: number, widget: string, hint: "e.g. 14,000+" }
               - { label: "Label", name: label, widget: string }
 
-          - label: "About — Mission / Vision / SDG"
+          - label: "About Us page"
             name: about
             widget: object
             fields:
+              - { label: "Intro (top of About page)", name: intro, widget: text }
               - { label: "Mission", name: mission, widget: text }
               - { label: "Vision", name: vision, widget: text }
-              - { label: "UN SDG Alignment", name: sdg, widget: text }
+              - { label: "UN SDG Alignment text", name: sdg, widget: text }
 
           - label: "Upcoming Events"
             name: events
@@ -83,15 +84,6 @@ collections:
               - { label: "Quote", name: quote, widget: text }
               - { label: "Student name", name: name, widget: string }
               - { label: "Grade", name: grade, widget: string }
-
-          - label: "Instagram Posts (shown under testimonials)"
-            name: instagramPosts
-            widget: list
-            max: 2
-            min: 2
-            summary: "{{fields.url}}"
-            fields:
-              - { label: "Post URL", name: url, widget: string, hint: "e.g. https://www.instagram.com/p/XXXX/" }
 
           - label: "Partners & Sponsors"
             name: partners

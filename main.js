@@ -95,9 +95,9 @@ function hydrate(root, { site }) {
         ).join('');
       }
       const cells = root.querySelectorAll('.socialgrid__cell');
-      if (cells.length >= 4 && im.posters?.length >= 2) {
-        cells[2].innerHTML = `<img src="${esc(im.posters[0].image)}" alt="Finance For Movement poster" />`;
-        cells[3].innerHTML = `<a href="#join"><img src="${esc(im.posters[1].image)}" alt="Join us poster" /></a>`;
+      if (cells.length >= 2 && im.posters?.length >= 2) {
+        cells[0].innerHTML = `<img src="${esc(im.posters[0].image)}" alt="Finance For Movement poster" />`;
+        cells[1].innerHTML = `<a href="#join"><img src="${esc(im.posters[1].image)}" alt="Join us poster" /></a>`;
       }
     }
 
@@ -109,18 +109,6 @@ function hydrate(root, { site }) {
           <blockquote>“${esc(t.quote)}”</blockquote>
           <figcaption><strong>${esc(t.name)}</strong> · ${esc(t.grade)}</figcaption>
         </figure>`).join('');
-    }
-
-    // Instagram posts (first two cells of the 2x2 social grid)
-    const igCells = root.querySelectorAll('.socialgrid__cell');
-    if (igCells.length >= 2 && site.instagramPosts?.length >= 2) {
-      site.instagramPosts.slice(0, 2).forEach((p, i) => {
-        const url = p.url.replace(/\/?$/, '/');
-        igCells[i].innerHTML = `
-          <blockquote class="instagram-media" data-instgrm-permalink="${esc(url)}?utm_source=ig_embed" data-instgrm-version="14">
-            <a href="${esc(url)}">View this post on Instagram</a>
-          </blockquote>`;
-      });
     }
 
     // Join cards
@@ -156,13 +144,49 @@ function hydrate(root, { site }) {
 (async function initContent() {
   const data = await loadContent();
   hydrate(document, data);
-  // (Re-)render Instagram embeds once their script is available.
-  let tries = 0;
-  const tick = setInterval(() => {
-    if (window.instgrm?.Embeds) { window.instgrm.Embeds.process(); clearInterval(tick); }
-    else if (++tries > 40) clearInterval(tick);
-  }, 250);
+  animateStats();
 })();
+
+/* ============================================================
+   1b. Impact stats — count up on scroll + gentle float
+   ============================================================ */
+function animateStats() {
+  const nums = document.querySelectorAll('.stat__num');
+  if (!nums.length) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  nums.forEach((el, i) => {
+    if (!reduceMotion) {
+      el.closest('.stat')?.classList.add('stat--float');
+      el.closest('.stat')?.style.setProperty('--float-delay', `${i * 0.55}s`);
+    }
+  });
+  if (reduceMotion) return;
+
+  const fmt = (n) => n.toLocaleString('en-US');
+  const run = (el) => {
+    const raw = el.textContent.trim();               // e.g. "14,000+"
+    const goal = parseInt(raw.replace(/[^0-9]/g, ''), 10);
+    if (!goal) return;
+    const suffix = raw.replace(/[0-9,.\s]/g, '');    // keep "+", "%" etc.
+    const dur = 1500;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(goal * eased)) + (p === 1 ? suffix : '');
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.4 });
+  nums.forEach((n) => io.observe(n));
+}
 
 /* ============================================================
    2. 3D HERO — floating navy coins & rings (home page only).
@@ -204,7 +228,11 @@ function hydrate(root, { site }) {
 
   const coinMats = [steelMat, lightMat, silverMat];
   const objects = [];
-  const COUNT = window.innerWidth < 680 ? 9 : 16;
+  // Phones get fewer, smaller, more distant shapes so they read as a
+  // background texture instead of dominating the narrow viewport.
+  const isPhone = window.innerWidth < 680;
+  const COUNT = isPhone ? 8 : 16;
+  const maxScale = isPhone ? 0.55 : 1.5;
   for (let i = 0; i < COUNT; i++) {
     let mesh;
     const r = Math.random();
@@ -216,11 +244,11 @@ function hydrate(root, { site }) {
     } else {
       mesh = new THREE.Mesh(icoGeo, navyMat);
     }
-    mesh.scale.setScalar(0.6 + Math.random() * 0.9);
+    mesh.scale.setScalar(0.35 + Math.random() * (maxScale - 0.35));
     mesh.position.set(
-      (Math.random() - 0.5) * 22,
+      (Math.random() - 0.5) * (isPhone ? 12 : 22),
       (Math.random() - 0.5) * 14,
-      (Math.random() - 0.5) * 10 - 2
+      (Math.random() - 0.5) * 8 - (isPhone ? 5 : 2)
     );
     mesh.userData = {
       rotSpeed: (Math.random() - 0.5) * 0.012,
@@ -288,7 +316,7 @@ function hydrate(root, { site }) {
   const results = document.getElementById('searchResults');
   if (!input || !results) return;
 
-  const PAGES = ['index.html', 'literacy-kits.html', 'contact.html'];
+  const PAGES = ['index.html', 'about.html', 'literacy-kits.html', 'contact.html'];
   let index = null;
   let building = null;
 

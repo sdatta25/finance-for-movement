@@ -18,9 +18,10 @@
     }
   ],
   "about": {
-    "mission": "To make financial literacy accessible, engaging, and fun for every young learner — starting with the communities that need it most. (Full mission statement coming soon.)",
+    "intro": "We are a youth-led 501(c)(3) nonprofit organization serving underrepresented elementary school students to foster personal finance skills through creativity.",
+    "mission": "Our mission is to improve the understanding of financial literacy and provide hands-on education by providing financial literacy workshops and kits funded through community driven art.",
     "vision": "A world where every child grows up equipped to make confident, thoughtful financial decisions. (Full vision statement coming soon.)",
-    "sdg": "Our work supports the United Nations Sustainable Development Goals — including Quality Education (SDG 4), No Poverty (SDG 1), and Reduced Inequalities (SDG 10). (Detailed alignment coming soon.)"
+    "sdg": "Our work aligns with the United Nations Sustainable Development Goals: No Poverty (Goal 1), Quality Education (Goal 4), Decent Work and Economic Growth (Goal 8), and Reduced Inequalities (Goal 10)."
   },
   "events": [
     {
@@ -75,14 +76,6 @@
       "grade": "4th grade"
     }
   ],
-  "instagramPosts": [
-    {
-      "url": "https://www.instagram.com/p/DK0Du4cygEy/"
-    },
-    {
-      "url": "https://www.instagram.com/p/DLFnYr3MN8Z/"
-    }
-  ],
   "partners": [
     {
       "name": "United Community Bank",
@@ -105,7 +98,7 @@
       "A handwritten note from our volunteers",
       "Reusable tote"
     ],
-    "formEmbedUrl": ""
+    "formEmbedUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf8PWrOVpOXwjwUxf0n6iSOf5hTaRbrziCHsZT56fgpAD5D4Q/viewform?embedded=true"
   },
   "board": {
     "title": "2026 Executive Board",

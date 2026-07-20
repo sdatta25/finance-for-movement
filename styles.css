@@ -121,6 +121,9 @@ p  { margin: 0 0 1rem; }
 .stat + .stat { border-left: 1px solid rgba(255,255,255,.1); }
 .stat__num { display: block; font-family: var(--font-head); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700; color: #fff; }
 .stat__label { color: rgba(255,255,255,.7); font-size: .9rem; }
+/* "Floating" stats — numbers count up on scroll, cards gently bob */
+.stat--float { animation: stat-bob 4.5s ease-in-out infinite; animation-delay: var(--float-delay, 0s); }
+@keyframes stat-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 
 /* ---------------- Sections ---------------- */
 .section { padding: 76px 0; }
@@ -138,6 +141,11 @@ p  { margin: 0 0 1rem; }
 
 /* About sub-sections: Mission / Vision / SDG */
 .about__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 3rem; }
+.about__pillars--two { grid-template-columns: repeat(2, 1fr); }
+
+/* UN SDG alignment graphic (official goal tiles) */
+.sdg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 860px; margin: 0 auto; }
+.sdg-grid img { width: 100%; border-radius: 4px; box-shadow: 0 6px 18px rgba(10,28,63,.12); }
 .pillar { border: 1px solid var(--line); border-radius: 4px; padding: 1.6rem 1.5rem; background: #fff; border-top: 3px solid var(--navy); }
 .pillar h3 { margin-bottom: .5rem; }
 .pillar p { color: var(--muted); margin: 0; font-size: .95rem; }
@@ -262,6 +270,9 @@ a.partner:hover { border-color: var(--navy); }
 @media (max-width: 920px) {
   .nav__links { display: none; }
   .nav__toggle { display: flex; }
+  /* Push actions (Join Us + search) to the right, next to the menu button,
+     leaving open space after the logo */
+  .nav__actions { margin-left: auto; }
   .nav.open .nav__links {
     display: flex; position: absolute; top: 66px; left: 0; right: 0; flex-direction: column;
     background: #fff; padding: .8rem 24px 1.2rem; gap: .2rem; border-bottom: 1px solid var(--line);
@@ -272,7 +283,8 @@ a.partner:hover { border-color: var(--navy); }
   .stat + .stat { border-left: 0; }
   .grid-2, .join__grid, .kit-layout, .events-list { grid-template-columns: 1fr; }
   .about__media { order: -1; }
-  .about__pillars { grid-template-columns: 1fr; }
+  .about__pillars, .about__pillars--two { grid-template-columns: 1fr; }
+  .sdg-grid { grid-template-columns: repeat(2, 1fr); }
   .problem__grid { grid-template-columns: repeat(2, 1fr); }
   .cards-3, .testi-grid { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
