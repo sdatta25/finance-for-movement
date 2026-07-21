@@ -5,24 +5,26 @@ Everything is plain HTML/CSS/JS — no build step, no framework — so it stays 
 
 ```
 ffm-website/
-├── index.html      ← Home (hero, about, testimonials + IG posts, posters, FAQ, join)
-├── resources.html  ← Resource Hub (real lesson covers linking to the Canva lessons)
-├── contact.html    ← Contact + embedded subscription Google Form
-├── styles.css      ← colors, fonts, spacing (navy theme lives at the top)
-├── main.js         ← 3D hero, site-wide content search, mobile menu
+├── index.html         ← Home (hero, stats, events, gallery, testimonials, partners, join, FAQ)
+├── about.html         ← About Us (mission, vision, UN SDG alignment)
+├── literacy-kits.html ← Literacy Kits (what's included + request form)
+├── contact.html       ← Contact (email + socials)
+├── styles.css         ← colors, fonts, spacing (navy theme lives at the top)
+├── main.js            ← 3D hero, floating stats, site-wide content search, mobile menu
+├── content/site.json  ← all editable content (managed via /admin)
 ├── images/
 │   ├── logo.png            ← FFM logo, transparent background
 │   ├── booth.jpeg / workshop.jpeg / crafts.jpeg
-│   ├── res-*.png           ← Canva lesson cover images (Resource Hub cards)
-│   └── poster-*.png        ← community posters shown under the IG posts
-└── README.md       ← this file
+│   ├── partner-*.svg/png   ← partner organization logos
+│   ├── sdg-*.png           ← official UN SDG goal tiles (About page)
+│   └── poster-*.png        ← community posters (home page)
+└── README.md          ← this file
 ```
 
-The top navigation is intentionally minimal (Home · About · Resource Hub · FAQ · Contact),
+The top navigation is intentionally minimal (Home · About Us · Literacy Kits · FAQ · Contact),
 followed by the **Join Us** button and a **search bar** on the far right. The search matches
 the real text content of every page and shows the matching sentence; anchor links jump
-directly to their section (no scroll animation). Instagram posts are embedded with
-Instagram's official embed script (they need internet to render).
+directly to their section (no scroll animation).
 
 ## View it locally
 Open `index.html` in any browser, or run a tiny server from this folder:
@@ -33,14 +35,15 @@ then visit http://localhost:4173
 
 ## Easiest way to edit: the /admin panel (Decap CMS)
 Once the site is live on Netlify, board members open **`<your-site>/admin/`**, log in with
-GitHub, and get a friendly form editor — no code. It edits `content/site.json` and
-`content/resources.json`, which the pages load automatically:
+GitHub, and get a friendly form editor — no code. It edits `content/site.json`,
+which the pages load automatically:
 
-- Impact stats, next event, student testimonials
-- The two embedded Instagram posts (paste any post URL)
+- Impact stats, upcoming events, student testimonials
+- About Us: intro, mission, vision, UN SDG text
+- Site photos (About photo, gallery, posters) and partner logos/links
+- Literacy Kits: intro, what's included, request-form URL
 - Executive Board & Internship cards (deadlines, application links)
-- FAQ, contact email/socials, the subscription form URL
-- Resource Hub cards (titles, descriptions, cover images, Canva links)
+- FAQ, contact email/socials
 
 Editors need a (free) GitHub account with write access to this repo.
 Anything not listed above (hero wording, About paragraphs) is edited in the HTML as below.
