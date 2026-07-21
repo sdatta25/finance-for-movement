@@ -34,9 +34,9 @@ function hydrate(root, { site }) {
       ).join('');
     }
 
-    // About: mission / vision / SDG
+    // About: intro / mission / SDG
     if (site.about) {
-      ['mission', 'vision', 'sdg'].forEach((k) => {
+      ['intro', 'mission', 'sdg'].forEach((k) => {
         const el = root.querySelector(`[data-about="${k}"]`);
         if (el && site.about[k]) el.textContent = site.about[k];
       });

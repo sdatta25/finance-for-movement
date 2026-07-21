@@ -43,7 +43,6 @@ collections:
             fields:
               - { label: "Intro (top of About page)", name: intro, widget: text }
               - { label: "Mission", name: mission, widget: text }
-              - { label: "Vision", name: vision, widget: text }
               - { label: "UN SDG Alignment text", name: sdg, widget: text }
 
           - label: "Upcoming Events"

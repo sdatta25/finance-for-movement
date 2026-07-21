@@ -139,9 +139,9 @@ p  { margin: 0 0 1rem; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
 .about__media img { border: 1px solid var(--line); border-radius: 4px; }
 
-/* About sub-sections: Mission / Vision / SDG */
+/* About sub-sections: Mission / SDG */
 .about__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 3rem; }
-.about__pillars--two { grid-template-columns: repeat(2, 1fr); }
+.about__pillars--one { grid-template-columns: 1fr; max-width: 760px; }
 
 /* UN SDG alignment graphic (official goal tiles) */
 .sdg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 860px; margin: 0 auto; }
@@ -283,7 +283,7 @@ a.partner:hover { border-color: var(--navy); }
   .stat + .stat { border-left: 0; }
   .grid-2, .join__grid, .kit-layout, .events-list { grid-template-columns: 1fr; }
   .about__media { order: -1; }
-  .about__pillars, .about__pillars--two { grid-template-columns: 1fr; }
+  .about__pillars, .about__pillars--one { grid-template-columns: 1fr; }
   .sdg-grid { grid-template-columns: repeat(2, 1fr); }
   .problem__grid { grid-template-columns: repeat(2, 1fr); }
   .cards-3, .testi-grid { grid-template-columns: 1fr; }
