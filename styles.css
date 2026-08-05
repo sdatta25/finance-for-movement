@@ -230,6 +230,8 @@ a.partner:hover { border-color: var(--navy); }
 .faq summary::after { content: '+'; font-size: 1.3rem; color: var(--muted); }
 .faq details[open] summary::after { content: '−'; }
 .faq details p { margin: .8rem 0 0; color: var(--muted); }
+.faq__more { text-align: center; margin-top: 2rem; color: var(--muted); }
+.faq__more a { color: var(--navy); font-weight: 600; text-decoration: underline; }
 
 /* ---------------- Literacy Kits page ---------------- */
 .kit-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }

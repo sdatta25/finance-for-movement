@@ -99,36 +99,6 @@
     ],
     "formEmbedUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf8PWrOVpOXwjwUxf0n6iSOf5hTaRbrziCHsZT56fgpAD5D4Q/viewform?embedded=true"
   },
-  "board": {
-    "title": "2026 Executive Board",
-    "items": [
-      {
-        "label": "Priority Deadline",
-        "value": "6/20, 11:59 PM EST"
-      },
-      {
-        "label": "Final Deadline",
-        "value": "7/20, 11:59 PM EST"
-      }
-    ],
-    "buttonText": "Apply for the Board",
-    "link": "https://forms.gle/nKR6Rkd7Ayn1Bd1P7"
-  },
-  "internship": {
-    "title": "2026 High School Summer Internship",
-    "items": [
-      {
-        "label": "Deadline",
-        "value": "June 15th, 11:59 PM EST"
-      },
-      {
-        "label": "Format",
-        "value": "Remote · work at your own pace"
-      }
-    ],
-    "buttonText": "Apply for the Internship",
-    "link": "https://forms.gle/kyUwQWP2EMzPiVjS9"
-  },
   "faq": [
     {
       "question": "Who are these programs for?",

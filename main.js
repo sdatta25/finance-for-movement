@@ -97,7 +97,7 @@ function hydrate(root, { site }) {
       const cells = root.querySelectorAll('.socialgrid__cell');
       if (cells.length >= 2 && im.posters?.length >= 2) {
         cells[0].innerHTML = `<img src="${esc(im.posters[0].image)}" alt="Finance For Movement poster" />`;
-        cells[1].innerHTML = `<a href="#join"><img src="${esc(im.posters[1].image)}" alt="Join us poster" /></a>`;
+        cells[1].innerHTML = `<a href="contact.html"><img src="${esc(im.posters[1].image)}" alt="Join us poster" /></a>`;
       }
     }
 
@@ -110,18 +110,6 @@ function hydrate(root, { site }) {
           <figcaption><strong>${esc(t.name)}</strong> · ${esc(t.grade)}</figcaption>
         </figure>`).join('');
     }
-
-    // Join cards
-    const joinCards = root.querySelectorAll('#join .join__card');
-    [site.board, site.internship].forEach((card, i) => {
-      if (!joinCards[i] || !card) return;
-      joinCards[i].innerHTML = `
-        <h3>${esc(card.title)}</h3>
-        <ul class="join__meta">
-          ${(card.items || []).map((it) => `<li><span>${esc(it.label)}</span> ${esc(it.value)}</li>`).join('')}
-        </ul>
-        <a class="btn btn--light" href="${esc(card.link)}" target="_blank" rel="noopener">${esc(card.buttonText)}</a>`;
-    });
 
     // FAQ
     const faq = root.querySelector('.faq');
@@ -316,7 +304,7 @@ function animateStats() {
   const results = document.getElementById('searchResults');
   if (!input || !results) return;
 
-  const PAGES = ['index.html', 'about.html', 'literacy-kits.html', 'contact.html'];
+  const PAGES = ['index.html', 'about.html', 'literacy-kits.html', 'faq.html', 'contact.html'];
   let index = null;
   let building = null;
 

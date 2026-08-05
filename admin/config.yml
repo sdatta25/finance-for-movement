@@ -66,7 +66,7 @@ collections:
                 summary: "{{fields.image}}"
                 fields:
                   - { label: "Photo", name: image, widget: image }
-              - label: "Community posters (exactly 2, shown under Instagram posts)"
+              - label: "Community posters (exactly 2, shown under testimonials)"
                 name: posters
                 widget: list
                 min: 2
@@ -103,34 +103,6 @@ collections:
                 widget: list
                 field: { label: "Item", name: item, widget: string }
               - { label: "Request form embed URL (optional)", name: formEmbedUrl, widget: string, required: false, hint: "Google Form link ending in ?embedded=true. Leave blank to show the email button." }
-
-          - label: "Executive Board card"
-            name: board
-            widget: object
-            fields:
-              - { label: "Title", name: title, widget: string }
-              - label: "Rows"
-                name: items
-                widget: list
-                fields:
-                  - { label: "Label", name: label, widget: string }
-                  - { label: "Value", name: value, widget: string }
-              - { label: "Button text", name: buttonText, widget: string }
-              - { label: "Application link", name: link, widget: string }
-
-          - label: "Internship card"
-            name: internship
-            widget: object
-            fields:
-              - { label: "Title", name: title, widget: string }
-              - label: "Rows"
-                name: items
-                widget: list
-                fields:
-                  - { label: "Label", name: label, widget: string }
-                  - { label: "Value", name: value, widget: string }
-              - { label: "Button text", name: buttonText, widget: string }
-              - { label: "Application link", name: link, widget: string }
 
           - label: "FAQ"
             name: faq
