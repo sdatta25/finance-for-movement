@@ -7,6 +7,22 @@
   <meta name="description" content="Finance For Movement is a youth-led 501(c)(3) nonprofit serving underrepresented elementary school students to foster personal finance skills through creativity." />
   <link rel="icon" href="images/logo.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- ============================ SDG TILE RECOLOR ============================ -->
+  <style>
+    /* Recolor the UN SDG tiles from red to blue.
+       grayscale flattens the red, sepia re-tints it, hue-rotate swings that
+       tint round to blue. White numbers and pictograms stay white. */
+    .sdg-grid img {
+      filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(5) brightness(.95);
+    }
+
+    /* Staggered shades so the four tiles read as a light-to-dark run */
+    .sdg-grid img:nth-child(1) { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(4)   brightness(1.08); }
+    .sdg-grid img:nth-child(2) { filter: grayscale(1) sepia(1) hue-rotate(182deg) saturate(5)   brightness(.90);  }
+    .sdg-grid img:nth-child(3) { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(6)   brightness(.70);  }
+    .sdg-grid img:nth-child(4) { filter: grayscale(1) sepia(1) hue-rotate(192deg) saturate(5.5) brightness(.84);  }
+  </style>
 </head>
 <body>
 
@@ -56,7 +72,7 @@
         <span class="kicker">Who We Are</span>
         <h2>Building money confidence, one young mind at a time.</h2>
         <p>
-          Finance For Movement is a youth-led nonprofit organization committed to bridge the gap
+          Finance For Movement is a youth-led nonprofit organization committed to bridging the gap
           in financial literacy skills among underserved students through hands-on workshops and
           literacy kits.
         </p>
@@ -133,14 +149,5 @@
   </footer>
 
   <script type="module" src="main.js"></script>
-  /* ---- Recolor SDG tiles to blue ---- */
-.sdg-grid img {
-  filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(5) brightness(.95);
-}
-/* stagger the shades so the four read as a light-to-dark run */
-.sdg-grid img:nth-child(1) { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(4)   brightness(1.08); }
-.sdg-grid img:nth-child(2) { filter: grayscale(1) sepia(1) hue-rotate(182deg) saturate(5)   brightness(.90);  }
-.sdg-grid img:nth-child(3) { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(6)   brightness(.70);  }
-.sdg-grid img:nth-child(4) { filter: grayscale(1) sepia(1) hue-rotate(192deg) saturate(5.5) brightness(.84);  }
 </body>
 </html>
