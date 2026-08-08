@@ -133,5 +133,14 @@
   </footer>
 
   <script type="module" src="main.js"></script>
+  /* ---- Recolor SDG tiles to blue ---- */
+.sdg-grid img {
+  filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(5) brightness(.95);
+}
+/* stagger the shades so the four read as a light-to-dark run */
+.sdg-grid img:nth-child(1) { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(4)   brightness(1.08); }
+.sdg-grid img:nth-child(2) { filter: grayscale(1) sepia(1) hue-rotate(182deg) saturate(5)   brightness(.90);  }
+.sdg-grid img:nth-child(3) { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(6)   brightness(.70);  }
+.sdg-grid img:nth-child(4) { filter: grayscale(1) sepia(1) hue-rotate(192deg) saturate(5.5) brightness(.84);  }
 </body>
 </html>
