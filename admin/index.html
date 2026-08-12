@@ -8,7 +8,14 @@
   <link rel="icon" href="../images/logo.png" type="image/png" />
 </head>
 <body>
-  <!-- Decap CMS (open-source content manager). Config lives in config.yml. -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!--
+    Sveltia CMS — a drop-in replacement for Decap CMS with a modern interface
+    and a much better image/media library. It reads the same config.yml and
+    uses the same GitHub login, so nothing else about the setup changes.
+
+    To go back to the old Decap interface, swap the script tag below for:
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  -->
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
 </body>
 </html>
