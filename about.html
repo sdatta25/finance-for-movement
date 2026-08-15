@@ -18,9 +18,6 @@
       will-change: transform;
     }
 
-    /* Each source tile starts at a different red, so each needs its own
-       rotation to land on the same blue family. Nudge the degrees if one
-       tile reads too purple or too teal. */
     .sdg-grid img:nth-child(1) { filter: hue-rotate(223deg) saturate(1.05); animation-delay: 0s;   }
     .sdg-grid img:nth-child(2) { filter: hue-rotate(223deg) saturate(1.15); animation-delay: .15s; }
     .sdg-grid img:nth-child(3) { filter: hue-rotate(235deg) saturate(1.20); animation-delay: .30s; }
@@ -31,78 +28,76 @@
       50%      { transform: translateY(-14px); }
     }
 
-    /* ============ MISSION BLOCK ============ */
-    .mission {
+    /* ============ MISSION BAND ============ */
+    .mission-band {
+      background: #0f2a4a;
+      padding: clamp(48px, 7vw, 88px) 0;
+    }
+
+    .mission-band__inner {
       display: grid;
-      grid-template-columns: minmax(160px, 240px) 1fr;
-      gap: clamp(20px, 4vw, 64px);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(28px, 5vw, 72px);
       align-items: start;
-      padding: clamp(36px, 6vw, 72px) 0 clamp(20px, 3vw, 32px);
-      border-top: 1px solid rgba(15, 42, 74, .12);
     }
 
-    .mission__label {
-      position: relative;
-      padding-top: .35rem;
-    }
-
-    .mission__kicker {
+    .mission-band__kicker {
       display: block;
       font-size: .74rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: #3f6ea8;
+      color: #85b7eb;
+      margin-bottom: 14px;
     }
 
-    .mission__rule {
-      display: block;
-      width: 56px;
-      height: 3px;
-      margin-top: 14px;
-      border-radius: 3px;
-      background: linear-gradient(90deg, #1f4e8c, #6fa4dd);
+    /* Matches the scale of the "Building money confidence" heading above */
+    .mission-band h2 {
+      color: #ffffff;
+      margin: 0 0 20px;
+      font-size: clamp(1.9rem, 3.6vw, 2.85rem);
+      line-height: 1.15;
     }
 
-    .mission__body {
-      position: relative;
-      padding-left: clamp(0px, 3vw, 40px);
-    }
-
-    .mission__mark {
-      position: absolute;
-      top: -.55em;
-      left: -.08em;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(80px, 12vw, 150px);
-      line-height: 1;
-      color: rgba(31, 78, 140, .10);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .mission__text {
-      position: relative;
+    .mission-band__text {
       margin: 0;
-      font-size: clamp(1.12rem, 1.9vw, 1.5rem);
-      line-height: 1.55;
-      color: #1c2a3c;
-      max-width: 62ch;
+      font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+      line-height: 1.6;
+      color: #d7e6f7;
+      max-width: 46ch;
     }
 
-    .mission__text strong {
+    .mission-band__pillars {
+      display: grid;
+      gap: 22px;
+      padding-top: 6px;
+    }
+
+    .pillar-row {
+      border-left: 2px solid #4f8bd0;
+      border-radius: 0;
+      padding-left: 16px;
+    }
+
+    .pillar-row h3 {
+      margin: 0 0 5px;
+      font-size: 1.06rem;
       font-weight: 600;
-      color: #0f2a4a;
-      box-shadow: inset 0 -.42em 0 rgba(111, 164, 221, .28);
+      color: #ffffff;
     }
 
-    @media (max-width: 760px) {
-      .mission { grid-template-columns: 1fr; gap: 18px; }
-      .mission__body { padding-left: 0; }
-      .mission__mark { display: none; }
+    .pillar-row p {
+      margin: 0;
+      font-size: .93rem;
+      line-height: 1.55;
+      color: #b5d4f4;
     }
 
-    /* Respect users who turn off motion */
+    @media (max-width: 820px) {
+      .mission-band__inner { grid-template-columns: 1fr; gap: 30px; }
+      .mission-band__text { max-width: none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .sdg-grid img { animation: none; }
     }
@@ -165,19 +160,33 @@
         <img src="images/booth.jpeg" alt="Finance For Movement volunteers at their festival booth, speaking with a visitor in front of an overview poster." />
       </div>
     </div>
+  </section>
 
-    <div class="container mission">
-      <div class="mission__label">
-        <span class="mission__kicker">Our Mission</span>
-        <span class="mission__rule" aria-hidden="true"></span>
-      </div>
-      <div class="mission__body">
-        <span class="mission__mark" aria-hidden="true">&ldquo;</span>
-        <p class="mission__text" data-about="mission">
-          Our mission is to <strong>improve the understanding of financial literacy</strong> and provide
-          hands-on education by providing financial literacy workshops and kits funded through
-          community driven art.
+  <!-- ============================ MISSION BAND ============================ -->
+  <section class="mission-band" id="mission" data-search-title="Our Mission">
+    <div class="container mission-band__inner">
+      <div>
+        <span class="mission-band__kicker">Our Mission</span>
+        <h2>Hands-on money education, funded by our community.</h2>
+        <p class="mission-band__text" data-about="mission">
+          Our mission is to improve the understanding of financial literacy and provide hands-on
+          education by providing financial literacy workshops and kits funded through community
+          driven art.
         </p>
+      </div>
+      <div class="mission-band__pillars">
+        <div class="pillar-row">
+          <h3>Teach</h3>
+          <p>Hands-on workshops in elementary classrooms.</p>
+        </div>
+        <div class="pillar-row">
+          <h3>Fund</h3>
+          <p>Community driven art that pays for the work.</p>
+        </div>
+        <div class="pillar-row">
+          <h3>Equip</h3>
+          <p>Literacy kits students take home and keep.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -242,4 +251,3 @@
   <script type="module" src="main.js"></script>
 </body>
 </html>
-
