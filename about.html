@@ -56,10 +56,10 @@
     }
 
     /* ============ SDG TILES: ONE UNIFORM BLUE ============ */
-    /* Each tile is a solid blue block; the artwork blends onto it in
-       luminosity mode, so every tile lands on the identical hue no matter
-       what red it started as. White art stays white. Change --sdg-blue
-       once to recolor all four. */
+    /* grayscale + heavy contrast crushes every tile background to black and
+       every number/pictogram to white. 'lighten' over a solid blue then shows
+       blue wherever it's black and white wherever it's white, so all four
+       land on the identical color. Change --sdg-blue to recolor all of them. */
     .sdg-grid { --sdg-blue: #1f4e8c; }
 
     .sdg-tile {
@@ -76,8 +76,8 @@
       display: block;
       width: 100%;
       height: auto;
-      mix-blend-mode: luminosity;
-      filter: none;
+      filter: grayscale(1) brightness(.75) contrast(6);
+      mix-blend-mode: lighten;
     }
 
     .sdg-tile:nth-child(1) { animation-delay: 0s;   }
