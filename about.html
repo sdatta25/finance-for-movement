@@ -17,7 +17,6 @@
       text-align: center;
     }
 
-    /* Eyebrow with a hairline rule on each side */
     .hero--page .hero__eyebrow {
       display: flex;
       align-items: center;
@@ -40,16 +39,13 @@
       flex: none;
     }
 
-    .hero--page .hero__title {
-      margin: 0 0 20px;
-    }
+    .hero--page .hero__title { margin: 0 0 20px; }
 
     .hero--page .hero__lede {
       max-width: 52ch;
       margin: 0 auto 26px;
     }
 
-    /* Accent bar closing out the block */
     .hero__rule {
       display: block;
       width: 48px;
@@ -59,17 +55,35 @@
       margin: 0 auto;
     }
 
-    /* ============ SDG TILES: RED -> BLUE, WHITE ART PRESERVED ============ */
-    .sdg-grid img {
-      filter: hue-rotate(223deg) saturate(1.15);
+    /* ============ SDG TILES: ONE UNIFORM BLUE ============ */
+    /* Each tile is a solid blue block; the artwork blends onto it in
+       luminosity mode, so every tile lands on the identical hue no matter
+       what red it started as. White art stays white. Change --sdg-blue
+       once to recolor all four. */
+    .sdg-grid { --sdg-blue: #1f4e8c; }
+
+    .sdg-tile {
+      background: var(--sdg-blue);
+      isolation: isolate;
+      overflow: hidden;
+      border-radius: 4px;
+      line-height: 0;
       animation: sdgBounce 2s ease-in-out infinite;
       will-change: transform;
     }
 
-    .sdg-grid img:nth-child(1) { filter: hue-rotate(223deg) saturate(1.05); animation-delay: 0s;   }
-    .sdg-grid img:nth-child(2) { filter: hue-rotate(223deg) saturate(1.15); animation-delay: .15s; }
-    .sdg-grid img:nth-child(3) { filter: hue-rotate(235deg) saturate(1.20); animation-delay: .30s; }
-    .sdg-grid img:nth-child(4) { filter: hue-rotate(242deg) saturate(1.10); animation-delay: .45s; }
+    .sdg-tile img {
+      display: block;
+      width: 100%;
+      height: auto;
+      mix-blend-mode: luminosity;
+      filter: none;
+    }
+
+    .sdg-tile:nth-child(1) { animation-delay: 0s;   }
+    .sdg-tile:nth-child(2) { animation-delay: .15s; }
+    .sdg-tile:nth-child(3) { animation-delay: .30s; }
+    .sdg-tile:nth-child(4) { animation-delay: .45s; }
 
     @keyframes sdgBounce {
       0%, 100% { transform: translateY(0); }
@@ -115,10 +129,7 @@
       max-width: 48ch;
     }
 
-    .mission-band__pillars {
-      display: grid;
-      gap: 22px;
-    }
+    .mission-band__pillars { display: grid; gap: 22px; }
 
     .pillar-row {
       border-left: 2px solid #4f8bd0;
@@ -152,7 +163,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .sdg-grid img { animation: none; }
+      .sdg-tile { animation: none; }
     }
   </style>
 </head>
@@ -253,10 +264,10 @@
         <h2>Alignment with UN SDG Goals</h2>
       </div>
       <div class="sdg-grid">
-        <img src="images/sdg-01.png" alt="UN Sustainable Development Goal 1: No Poverty" />
-        <img src="images/sdg-04.png" alt="UN Sustainable Development Goal 4: Quality Education" />
-        <img src="images/sdg-08.png" alt="UN Sustainable Development Goal 8: Decent Work and Economic Growth" />
-        <img src="images/sdg-10.png" alt="UN Sustainable Development Goal 10: Reduced Inequalities" />
+        <div class="sdg-tile"><img src="images/sdg-01.png" alt="UN Sustainable Development Goal 1: No Poverty" /></div>
+        <div class="sdg-tile"><img src="images/sdg-04.png" alt="UN Sustainable Development Goal 4: Quality Education" /></div>
+        <div class="sdg-tile"><img src="images/sdg-08.png" alt="UN Sustainable Development Goal 8: Decent Work and Economic Growth" /></div>
+        <div class="sdg-tile"><img src="images/sdg-10.png" alt="UN Sustainable Development Goal 10: Reduced Inequalities" /></div>
       </div>
     </div>
   </section>
