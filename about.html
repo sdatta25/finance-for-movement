@@ -9,17 +9,55 @@
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    /* ============ HERO ALIGNMENT ============ */
-    /* The page hero was centering its own content inside the container,
-       so "About Us" sat further right than every section below it.
-       Clearing the auto margins snaps it to the same left edge. */
+    /* ============ PAGE HERO ============ */
     .hero--page .hero__content {
-      max-width: none;
-      margin-left: 0;
-      margin-right: 0;
-      text-align: left;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
     }
-    .hero--page .hero__lede { max-width: 62ch; }
+
+    /* Eyebrow with a hairline rule on each side */
+    .hero--page .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 0 18px;
+      color: #85b7eb;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-size: .74rem;
+      font-weight: 600;
+    }
+
+    .hero--page .hero__eyebrow::before,
+    .hero--page .hero__eyebrow::after {
+      content: "";
+      height: 1px;
+      width: clamp(28px, 6vw, 64px);
+      background: rgba(133, 183, 235, .5);
+      flex: none;
+    }
+
+    .hero--page .hero__title {
+      margin: 0 0 20px;
+    }
+
+    .hero--page .hero__lede {
+      max-width: 52ch;
+      margin: 0 auto 26px;
+    }
+
+    /* Accent bar closing out the block */
+    .hero__rule {
+      display: block;
+      width: 48px;
+      height: 3px;
+      border-radius: 3px;
+      background: #4f8bd0;
+      margin: 0 auto;
+    }
 
     /* ============ SDG TILES: RED -> BLUE, WHITE ART PRESERVED ============ */
     .sdg-grid img {
@@ -108,6 +146,11 @@
       .mission-band__text { max-width: none; }
     }
 
+    @media (max-width: 520px) {
+      .hero--page .hero__eyebrow::before,
+      .hero--page .hero__eyebrow::after { width: 20px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .sdg-grid img { animation: none; }
     }
@@ -148,9 +191,10 @@
   <!-- ============================ PAGE HEADER ============================ -->
   <section class="hero hero--page">
     <div class="container hero__content">
-      <p class="hero__eyebrow">Youth-led · 501(c)(3) nonprofit</p>
+      <p class="hero__eyebrow"><span>Youth-led · 501(c)(3) nonprofit</span></p>
       <h1 class="hero__title">About Us</h1>
       <p class="hero__lede" data-about="intro">We are a youth-led 501(c)(3) nonprofit organization serving underrepresented elementary school students to foster personal finance skills through creativity.</p>
+      <span class="hero__rule" aria-hidden="true"></span>
     </div>
   </section>
 
