@@ -8,27 +8,98 @@
   <link rel="icon" href="images/logo.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- ============================ SDG TILE RECOLOR + BOUNCE ============================ -->
   <style>
-    /* Recolor the UN SDG tiles from red to blue.
-       grayscale flattens the red, sepia re-tints it, hue-rotate swings that
-       tint round to blue. White numbers and pictograms stay white. */
+    /* ============ SDG TILES: RED -> BLUE, WHITE ART PRESERVED ============ */
+    /* hue-rotate on its own only moves saturated color. White numbers and
+       pictograms have no hue, so they stay pure white. */
     .sdg-grid img {
-      filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(5) brightness(.95);
+      filter: hue-rotate(223deg) saturate(1.15);
       animation: sdgBounce 2s ease-in-out infinite;
       will-change: transform;
     }
 
-    /* Staggered shades so the four tiles read as a light-to-dark run,
-       plus staggered delays so they bounce in a wave instead of in unison */
-    .sdg-grid img:nth-child(1) { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(4)   brightness(1.08); animation-delay: 0s;   }
-    .sdg-grid img:nth-child(2) { filter: grayscale(1) sepia(1) hue-rotate(182deg) saturate(5)   brightness(.90);  animation-delay: .15s; }
-    .sdg-grid img:nth-child(3) { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(6)   brightness(.70);  animation-delay: .30s; }
-    .sdg-grid img:nth-child(4) { filter: grayscale(1) sepia(1) hue-rotate(192deg) saturate(5.5) brightness(.84);  animation-delay: .45s; }
+    /* Each source tile starts at a different red, so each needs its own
+       rotation to land on the same blue family. Nudge the degrees if one
+       tile reads too purple or too teal. */
+    .sdg-grid img:nth-child(1) { filter: hue-rotate(223deg) saturate(1.05); animation-delay: 0s;   }
+    .sdg-grid img:nth-child(2) { filter: hue-rotate(223deg) saturate(1.15); animation-delay: .15s; }
+    .sdg-grid img:nth-child(3) { filter: hue-rotate(235deg) saturate(1.20); animation-delay: .30s; }
+    .sdg-grid img:nth-child(4) { filter: hue-rotate(242deg) saturate(1.10); animation-delay: .45s; }
 
     @keyframes sdgBounce {
       0%, 100% { transform: translateY(0); }
       50%      { transform: translateY(-14px); }
+    }
+
+    /* ============ MISSION BLOCK ============ */
+    .mission {
+      display: grid;
+      grid-template-columns: minmax(160px, 240px) 1fr;
+      gap: clamp(20px, 4vw, 64px);
+      align-items: start;
+      padding: clamp(36px, 6vw, 72px) 0 clamp(20px, 3vw, 32px);
+      border-top: 1px solid rgba(15, 42, 74, .12);
+    }
+
+    .mission__label {
+      position: relative;
+      padding-top: .35rem;
+    }
+
+    .mission__kicker {
+      display: block;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #3f6ea8;
+    }
+
+    .mission__rule {
+      display: block;
+      width: 56px;
+      height: 3px;
+      margin-top: 14px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #1f4e8c, #6fa4dd);
+    }
+
+    .mission__body {
+      position: relative;
+      padding-left: clamp(0px, 3vw, 40px);
+    }
+
+    .mission__mark {
+      position: absolute;
+      top: -.55em;
+      left: -.08em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(80px, 12vw, 150px);
+      line-height: 1;
+      color: rgba(31, 78, 140, .10);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .mission__text {
+      position: relative;
+      margin: 0;
+      font-size: clamp(1.12rem, 1.9vw, 1.5rem);
+      line-height: 1.55;
+      color: #1c2a3c;
+      max-width: 62ch;
+    }
+
+    .mission__text strong {
+      font-weight: 600;
+      color: #0f2a4a;
+      box-shadow: inset 0 -.42em 0 rgba(111, 164, 221, .28);
+    }
+
+    @media (max-width: 760px) {
+      .mission { grid-template-columns: 1fr; gap: 18px; }
+      .mission__body { padding-left: 0; }
+      .mission__mark { display: none; }
     }
 
     /* Respect users who turn off motion */
@@ -95,11 +166,19 @@
       </div>
     </div>
 
-    <div class="container about__pillars about__pillars--one">
-      <article class="pillar">
-        <h3>Our Mission</h3>
-        <p data-about="mission">Our mission is to improve the understanding of financial literacy and provide hands-on education by providing financial literacy workshops and kits funded through community driven art.</p>
-      </article>
+    <div class="container mission">
+      <div class="mission__label">
+        <span class="mission__kicker">Our Mission</span>
+        <span class="mission__rule" aria-hidden="true"></span>
+      </div>
+      <div class="mission__body">
+        <span class="mission__mark" aria-hidden="true">&ldquo;</span>
+        <p class="mission__text" data-about="mission">
+          Our mission is to <strong>improve the understanding of financial literacy</strong> and provide
+          hands-on education by providing financial literacy workshops and kits funded through
+          community driven art.
+        </p>
+      </div>
     </div>
   </section>
 
