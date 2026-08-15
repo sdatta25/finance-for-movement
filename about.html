@@ -8,20 +8,33 @@
   <link rel="icon" href="images/logo.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- ============================ SDG TILE RECOLOR ============================ -->
+  <!-- ============================ SDG TILE RECOLOR + BOUNCE ============================ -->
   <style>
     /* Recolor the UN SDG tiles from red to blue.
        grayscale flattens the red, sepia re-tints it, hue-rotate swings that
        tint round to blue. White numbers and pictograms stay white. */
     .sdg-grid img {
       filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(5) brightness(.95);
+      animation: sdgBounce 2s ease-in-out infinite;
+      will-change: transform;
     }
 
-    /* Staggered shades so the four tiles read as a light-to-dark run */
-    .sdg-grid img:nth-child(1) { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(4)   brightness(1.08); }
-    .sdg-grid img:nth-child(2) { filter: grayscale(1) sepia(1) hue-rotate(182deg) saturate(5)   brightness(.90);  }
-    .sdg-grid img:nth-child(3) { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(6)   brightness(.70);  }
-    .sdg-grid img:nth-child(4) { filter: grayscale(1) sepia(1) hue-rotate(192deg) saturate(5.5) brightness(.84);  }
+    /* Staggered shades so the four tiles read as a light-to-dark run,
+       plus staggered delays so they bounce in a wave instead of in unison */
+    .sdg-grid img:nth-child(1) { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(4)   brightness(1.08); animation-delay: 0s;   }
+    .sdg-grid img:nth-child(2) { filter: grayscale(1) sepia(1) hue-rotate(182deg) saturate(5)   brightness(.90);  animation-delay: .15s; }
+    .sdg-grid img:nth-child(3) { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(6)   brightness(.70);  animation-delay: .30s; }
+    .sdg-grid img:nth-child(4) { filter: grayscale(1) sepia(1) hue-rotate(192deg) saturate(5.5) brightness(.84);  animation-delay: .45s; }
+
+    @keyframes sdgBounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+
+    /* Respect users who turn off motion */
+    @media (prefers-reduced-motion: reduce) {
+      .sdg-grid img { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -150,3 +163,4 @@
   <script type="module" src="main.js"></script>
 </body>
 </html>
+
