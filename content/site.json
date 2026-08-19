@@ -85,6 +85,11 @@
       "name": "Peach State Federal Credit Union",
       "logo": "images/partner-peachstate.png",
       "link": "https://www.peachstatefcu.org/"
+    },
+    {
+      "name": "Gwinnett County Public Schools",
+      "logo": "images/partner-gcps.svg",
+      "link": "https://www.gcpsk12.org/"
     }
   ],
   "literacyKits": {
