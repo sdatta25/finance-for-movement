@@ -183,16 +183,36 @@ function animateStats() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
 
-  const THREE = await import('three');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Phones: fewer/smaller shapes, no antialiasing, lower pixel ratio. A
+  // full-screen WebGL canvas at 3x DPR is what makes scrolling stutter.
+  const isPhone = window.innerWidth < 680;
+  const isTouch = window.matchMedia('(hover: none)').matches;
+
+  const THREE = await import('three');
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  // Aspect and size come from the canvas's own box, not the window. The hero
+  // is 88vh tall, so sizing to window.innerHeight cropped the render.
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
   camera.position.z = 14;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !isPhone,
+    alpha: true,
+    powerPreference: isPhone ? 'low-power' : 'default',
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isPhone ? 1.5 : 2));
+
+  function resize() {
+    const w = canvas.clientWidth || 1;
+    const h = canvas.clientHeight || 1;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false); // false: don't touch the CSS size
+  }
+  resize();
 
   scene.add(new THREE.AmbientLight(0x5b7fc4, 0.7));
   const key = new THREE.DirectionalLight(0xeaf1ff, 1.4);
@@ -218,9 +238,8 @@ function animateStats() {
   const objects = [];
   // Phones get fewer, smaller, more distant shapes so they read as a
   // background texture instead of dominating the narrow viewport.
-  const isPhone = window.innerWidth < 680;
-  const COUNT = isPhone ? 8 : 16;
-  const maxScale = isPhone ? 0.55 : 1.5;
+  const COUNT = isPhone ? 7 : 16;
+  const maxScale = isPhone ? 1.0 : 1.5;
   for (let i = 0; i < COUNT; i++) {
     let mesh;
     const r = Math.random();
@@ -232,11 +251,11 @@ function animateStats() {
     } else {
       mesh = new THREE.Mesh(icoGeo, navyMat);
     }
-    mesh.scale.setScalar(0.35 + Math.random() * (maxScale - 0.35));
+    mesh.scale.setScalar(0.5 + Math.random() * (maxScale - 0.5));
     mesh.position.set(
-      (Math.random() - 0.5) * (isPhone ? 12 : 22),
+      (Math.random() - 0.5) * (isPhone ? 11 : 22),
       (Math.random() - 0.5) * 14,
-      (Math.random() - 0.5) * 8 - (isPhone ? 5 : 2)
+      (Math.random() - 0.5) * 8 - (isPhone ? 2 : 2)
     );
     mesh.userData = {
       rotSpeed: (Math.random() - 0.5) * 0.012,
@@ -249,14 +268,19 @@ function animateStats() {
     objects.push(mesh);
   }
 
+  // Mouse parallax — pointer devices only. On phones this fired on every
+  // touch-drag frame while the user was trying to scroll.
   const target = { x: 0, y: 0 };
-  window.addEventListener('pointermove', (e) => {
-    target.x = (e.clientX / window.innerWidth - 0.5);
-    target.y = (e.clientY / window.innerHeight - 0.5);
-  });
+  if (!isTouch) {
+    window.addEventListener('pointermove', (e) => {
+      target.x = (e.clientX / window.innerWidth - 0.5);
+      target.y = (e.clientY / window.innerHeight - 0.5);
+    }, { passive: true });
+  }
 
   const clock = new THREE.Clock();
-  function animate() {
+
+  function draw() {
     const t = clock.getElapsedTime();
     objects.forEach((m) => {
       m.rotation.z += m.userData.rotSpeed;
@@ -267,16 +291,41 @@ function animateStats() {
     camera.position.y += (-target.y * 1.6 - camera.position.y) * 0.04;
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
-    if (!reduceMotion) requestAnimationFrame(animate);
   }
-  animate();
-  if (reduceMotion) renderer.render(scene, camera);
 
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  if (reduceMotion) {
+    draw();
+    return;
+  }
+
+  // Only animate while the hero is actually on screen and the tab is visible.
+  // Previously this ran forever, so the GPU kept working the whole way down
+  // the page and made scrolling stutter on phones.
+  let rafId = null;
+  let onScreen = true;
+
+  function loop() {
+    if (!onScreen || document.hidden) { rafId = null; return; }
+    draw();
+    rafId = requestAnimationFrame(loop);
+  }
+  function start() { if (rafId === null) rafId = requestAnimationFrame(loop); }
+  function stop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
+
+  new IntersectionObserver(([entry]) => {
+    onScreen = entry.isIntersecting;
+    onScreen ? start() : stop();
+  }, { threshold: 0 }).observe(canvas);
+
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stop() : start();
   });
+
+  // Track the canvas box itself, so the mobile URL bar showing/hiding
+  // doesn't trigger a full resize storm.
+  new ResizeObserver(() => { resize(); if (rafId === null) draw(); }).observe(canvas);
+
+  start();
 })();
 
 /* ============================================================
