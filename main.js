@@ -1,7 +1,7 @@
 /* ============================================================
    Finance For Movement — site script
    1. Content hydration (CMS)   4. Site search
-   2. 3D hero                   5. Footer year
+   2. Glow hero                 5. Footer year
    3. Mobile nav
    ============================================================ */
 
@@ -177,155 +177,15 @@ function animateStats() {
 }
 
 /* ============================================================
-   2. 3D HERO — floating navy coins & rings (home page only).
+   2. GLOW HERO — pause its animations once it's scrolled past,
+      so nothing competes with scrolling further down the page.
    ============================================================ */
-(async function initHero() {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Phones: fewer/smaller shapes, no antialiasing, lower pixel ratio. A
-  // full-screen WebGL canvas at 3x DPR is what makes scrolling stutter.
-  const isPhone = window.innerWidth < 680;
-  const isTouch = window.matchMedia('(hover: none)').matches;
-
-  const THREE = await import('three');
-
-  const scene = new THREE.Scene();
-  // Aspect and size come from the canvas's own box, not the window. The hero
-  // is 88vh tall, so sizing to window.innerHeight cropped the render.
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-  camera.position.z = 14;
-
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: !isPhone,
-    alpha: true,
-    powerPreference: isPhone ? 'low-power' : 'default',
-  });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isPhone ? 1.5 : 2));
-
-  function resize() {
-    const w = canvas.clientWidth || 1;
-    const h = canvas.clientHeight || 1;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h, false); // false: don't touch the CSS size
-  }
-  resize();
-
-  scene.add(new THREE.AmbientLight(0x5b7fc4, 0.7));
-  const key = new THREE.DirectionalLight(0xeaf1ff, 1.4);
-  key.position.set(5, 8, 6);
-  scene.add(key);
-  const rim = new THREE.PointLight(0x2f5fae, 2.2, 60);
-  rim.position.set(-8, -4, 8);
-  scene.add(rim);
-
-  const steelMat  = new THREE.MeshStandardMaterial({ color: 0x2f5fae, metalness: 0.85, roughness: 0.3 });
-  const lightMat  = new THREE.MeshStandardMaterial({ color: 0x9db8e6, metalness: 0.7,  roughness: 0.35 });
-  const navyMat   = new THREE.MeshStandardMaterial({ color: 0x14305f, metalness: 0.5,  roughness: 0.5 });
-  const silverMat = new THREE.MeshStandardMaterial({ color: 0xdfe8f7, metalness: 0.9,  roughness: 0.25 });
-
-  const group = new THREE.Group();
-  scene.add(group);
-
-  const coinGeo = new THREE.CylinderGeometry(1, 1, 0.18, 48);
-  const torusGeo = new THREE.TorusGeometry(0.85, 0.16, 16, 40);
-  const icoGeo = new THREE.IcosahedronGeometry(0.7, 0);
-
-  const coinMats = [steelMat, lightMat, silverMat];
-  const objects = [];
-  // Phones get fewer, smaller, more distant shapes so they read as a
-  // background texture instead of dominating the narrow viewport.
-  const COUNT = isPhone ? 7 : 16;
-  const maxScale = isPhone ? 1.0 : 1.5;
-  for (let i = 0; i < COUNT; i++) {
-    let mesh;
-    const r = Math.random();
-    if (r < 0.6) {
-      mesh = new THREE.Mesh(coinGeo, coinMats[Math.floor(Math.random() * coinMats.length)]);
-      mesh.rotation.x = Math.PI / 2;
-    } else if (r < 0.82) {
-      mesh = new THREE.Mesh(torusGeo, lightMat);
-    } else {
-      mesh = new THREE.Mesh(icoGeo, navyMat);
-    }
-    mesh.scale.setScalar(0.5 + Math.random() * (maxScale - 0.5));
-    mesh.position.set(
-      (Math.random() - 0.5) * (isPhone ? 11 : 22),
-      (Math.random() - 0.5) * 14,
-      (Math.random() - 0.5) * 8 - (isPhone ? 2 : 2)
-    );
-    mesh.userData = {
-      rotSpeed: (Math.random() - 0.5) * 0.012,
-      floatSpeed: 0.4 + Math.random() * 0.6,
-      floatAmp: 0.4 + Math.random() * 0.7,
-      baseY: mesh.position.y,
-      phase: Math.random() * Math.PI * 2,
-    };
-    group.add(mesh);
-    objects.push(mesh);
-  }
-
-  // Mouse parallax — pointer devices only. On phones this fired on every
-  // touch-drag frame while the user was trying to scroll.
-  const target = { x: 0, y: 0 };
-  if (!isTouch) {
-    window.addEventListener('pointermove', (e) => {
-      target.x = (e.clientX / window.innerWidth - 0.5);
-      target.y = (e.clientY / window.innerHeight - 0.5);
-    }, { passive: true });
-  }
-
-  const clock = new THREE.Clock();
-
-  function draw() {
-    const t = clock.getElapsedTime();
-    objects.forEach((m) => {
-      m.rotation.z += m.userData.rotSpeed;
-      m.rotation.y += m.userData.rotSpeed * 0.6;
-      m.position.y = m.userData.baseY + Math.sin(t * m.userData.floatSpeed + m.userData.phase) * m.userData.floatAmp;
-    });
-    camera.position.x += (target.x * 2.4 - camera.position.x) * 0.04;
-    camera.position.y += (-target.y * 1.6 - camera.position.y) * 0.04;
-    camera.lookAt(scene.position);
-    renderer.render(scene, camera);
-  }
-
-  if (reduceMotion) {
-    draw();
-    return;
-  }
-
-  // Only animate while the hero is actually on screen and the tab is visible.
-  // Previously this ran forever, so the GPU kept working the whole way down
-  // the page and made scrolling stutter on phones.
-  let rafId = null;
-  let onScreen = true;
-
-  function loop() {
-    if (!onScreen || document.hidden) { rafId = null; return; }
-    draw();
-    rafId = requestAnimationFrame(loop);
-  }
-  function start() { if (rafId === null) rafId = requestAnimationFrame(loop); }
-  function stop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
-
+(function heroPause() {
+  const hero = document.querySelector('.hero--glow');
+  if (!hero) return;
   new IntersectionObserver(([entry]) => {
-    onScreen = entry.isIntersecting;
-    onScreen ? start() : stop();
-  }, { threshold: 0 }).observe(canvas);
-
-  document.addEventListener('visibilitychange', () => {
-    document.hidden ? stop() : start();
-  });
-
-  // Track the canvas box itself, so the mobile URL bar showing/hiding
-  // doesn't trigger a full resize storm.
-  new ResizeObserver(() => { resize(); if (rafId === null) draw(); }).observe(canvas);
-
-  start();
+    hero.classList.toggle('is-offscreen', !entry.isIntersecting);
+  }, { threshold: 0 }).observe(hero);
 })();
 
 /* ============================================================
