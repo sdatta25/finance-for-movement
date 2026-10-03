@@ -24,16 +24,10 @@
   },
   "events": [
     {
-      "month": "SEP",
-      "day": "12",
-      "title": "Duluth Off the Rail: 150",
-      "description": "September 12th, 2026 · In-person outreach & hands-on activities."
-    },
-    {
-      "month": "SEP",
-      "day": "19",
-      "title": "Suwanee Festival",
-      "description": "September 19th, 2026 · Details to be announced."
+      "month": "OCT",
+      "day": "25",
+      "title": "Library Workshop",
+      "description": "October 25th, 2026 · Duluth Library"
     }
   ],
   "images": {
